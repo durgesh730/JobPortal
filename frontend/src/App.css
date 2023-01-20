@@ -1,0 +1,78 @@
+.subscrpt_container{
+    width: 250px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgb(0 0 0/25%);
+}
+.subscrpt_container .basic{
+    color: black;
+}
+
+.subscrpt_container .premium{
+    color: black;
+}
+.order_type{
+font-size: 20px;
+font-weight: bold;
+margin: 5px 0;
+text-align: center;
+color: black;
+}
+
+.order_price{
+    font-size: 16px;
+    font-weight: 500;
+    margin: 5px 0;
+    text-align: center;
+}
+
+.buy_btn{
+    width: 100%;
+    height: 50px;
+    outline: none;
+    border: none;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: #f4d072;
+   
+}
+
+.overlay{
+    background-color: rgb(0 0 0 0.5);
+    position: fixed;
+   width: 100%;
+   height: 100%;
+}
+.subscrpt_container{
+    max-width: 600px;
+    width: 100%;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    background-color: aliceblue;
+    box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.75);
+}
+.basic{
+    width: 50%;
+    height: 100%;
+}
+.premium{
+        width: 50%;
+        height: 100%;
+        padding: 20px 20px 20px 20px 20px;
+}
+.premium .closeBtn{
+    background-color: aliceblue;
+    border-color: aliceblue;
+    margin-left: 90%;
+}
+.premium .closeBtn > p{
+    margin: 0px;
+    padding: 0px;
+}

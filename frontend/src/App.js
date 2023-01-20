@@ -1,6 +1,10 @@
 import { createContext, useState } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Grid, makeStyles } from "@material-ui/core";
+import axios from "axios";
+
+import "./App.css";
+
 
 import Welcome, { ErrorPage } from "./component/Welcome";
 import Navbar from "./component/Navbar";
@@ -16,8 +20,25 @@ import JobApplications from "./component/recruiter/JobApplications";
 import AcceptedApplicants from "./component/recruiter/AcceptedApplicants";
 import RecruiterProfile from "./component/recruiter/Profile";
 import MessagePopup from "./lib/MessagePopup";
-import isAuth, { userType } from "./lib/isAuth";
 import Admin from "./component/Admin";
+import isAuth, { userType,subscriptionType } from "./lib/isAuth";
+import Subscription from "./component/Subscription";
+
+
+
+function loadScript(src) {
+  return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+          resolve(true);
+      };
+      script.onerror = () => {
+          resolve(false);
+      };
+      document.body.appendChild(script);
+  });
+}
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -41,6 +62,9 @@ function App() {
     severity: "",
     message: "",
   });
+  const [subscription,setSubscription] = useState(true);
+
+
   return (
     <BrowserRouter>
       <SetPopupContext.Provider value={setPopup}>
@@ -90,6 +114,10 @@ function App() {
               <Route exact path="/employees">
                 <AcceptedApplicants />
               </Route>
+              {/* <Route exact path="/subscription">
+             <Subscription/>
+              </Route> */}
+             
               <Route>
                 <ErrorPage />
               </Route>
