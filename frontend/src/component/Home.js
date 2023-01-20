@@ -29,6 +29,7 @@ import { SetPopupContext } from "../App";
 import apiList from "../lib/apiList";
 import { userType } from "../lib/isAuth";
 
+
 const useStyles = makeStyles((theme) => ({
   body: {
     height: "inherit",
@@ -98,10 +99,13 @@ const JobTile = (props) => {
       });
   };
 
+
+
   const deadline = new Date(job.deadline).toLocaleDateString();
 
   return (
     <Paper className={classes.jobTileOuter} elevation={3}>
+   
       <Grid container>
         <Grid container item xs={9} spacing={1} direction="column">
           <Grid item>

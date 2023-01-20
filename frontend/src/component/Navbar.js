@@ -6,8 +6,9 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-
-import isAuth, { userType } from "../lib/isAuth";
+import React, { useState } from "react";
+import isAuth, { userType, subscriptionType } from "../lib/isAuth";
+import Subscription from "./Subscription";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Navbar = (props) => {
+  const [openSubscription, setSubscription] = useState(false);
+
   const classes = useStyles();
   let history = useHistory();
 
@@ -35,6 +38,13 @@ const Navbar = (props) => {
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
           Job Portal
+          <Button onClick={() => setSubscription(true)}>
+            Buy Subscription
+          </Button>
+          <Subscription
+            open={openSubscription}
+            onClose={() => setSubscription(false)}
+          />
         </Typography>
         {isAuth() ? (
           userType() === "recruiter" ? (
