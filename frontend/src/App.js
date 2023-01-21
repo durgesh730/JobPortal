@@ -23,6 +23,7 @@ import MessagePopup from "./lib/MessagePopup";
 import Admin from "./component/Admin";
 import isAuth, { userType,subscriptionType } from "./lib/isAuth";
 import Subscription from "./component/Subscription";
+import Resumerevie from "./component/admin/Resume";
 
 
 
@@ -91,6 +92,9 @@ function App() {
               </Route>
               <Route exact path="/home">
                 <Home />
+              </Route>
+              <Route exact path="/admin/review_resume">
+                <Resumerevie />
               </Route>
               <Route exact path="/applications">
                 <Applications />

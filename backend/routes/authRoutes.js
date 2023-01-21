@@ -6,7 +6,7 @@ const authKeys = require("../lib/authKeys");
 const User = require("../db/User");
 const JobApplicant = require("../db/JobApplicant");
 const Recruiter = require("../db/Recruiter");
-
+const Admin = require("../db/Admin");
 const router = express.Router();
 
 router.post("/signup", (req, res) => {
@@ -87,7 +87,4 @@ router.post("/login", (req, res, next) => {
   )(req, res, next);
 });
 
-router.get("/adminlogin" , (req , res , next)=>{
-  
-})
 module.exports = router;

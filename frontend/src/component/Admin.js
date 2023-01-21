@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import {
   Grid,
-  TextField,
   Button,
   Typography,
   makeStyles,
@@ -9,9 +8,9 @@ import {
 } from "@material-ui/core";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import EmailInput from "../lib/EmailInput";
 
 import PasswordInput from "../lib/PasswordInput";
-import EmailInput from "../lib/EmailInput";
 import { SetPopupContext } from "../App";
 
 import apiList from "../lib/apiList";
@@ -39,7 +38,7 @@ const Admin = (props) => {
     email: "",
     password: "",
   });
-
+  console.log(loginDetails)
   const [inputErrorHandler, setInputErrorHandler] = useState({
     email: {
       error: false,
@@ -74,10 +73,10 @@ const Admin = (props) => {
     });
     if (verified) {
       axios
-        .post(apiList.login, loginDetails)
+        .post(apiList.adminLogin, loginDetails)
         .then((response) => {
           localStorage.setItem("token", response.data.token);
-          localStorage.setItem("type", response.data.type);
+          localStorage.setItem("type", "Admin");
           setLoggedin(isAuth());
           setPopup({
             open: true,
@@ -110,7 +109,7 @@ const Admin = (props) => {
       <Grid container direction="column" spacing={4} alignItems="center">
         <Grid item>
           <Typography variant="h3" component="h2">
-            Login
+            Admin Login
           </Typography>
         </Grid>
         <Grid item>
