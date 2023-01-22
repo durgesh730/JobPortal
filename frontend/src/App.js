@@ -22,6 +22,7 @@ import RecruiterProfile from "./component/recruiter/Profile";
 import MessagePopup from "./lib/MessagePopup";
 import isAuth, { userType,subscriptionType } from "./lib/isAuth";
 import Subscription from "./component/Subscription";
+import OfflineExamSchedule from "./component/OfflineExamSchedule";
 
 
 
@@ -61,7 +62,7 @@ function App() {
     severity: "",
     message: "",
   });
-  const [subscription,setSubscription] = useState(true);
+
 
 
   return (
@@ -113,7 +114,9 @@ function App() {
               {/* <Route exact path="/subscription">
              <Subscription/>
               </Route> */}
-             
+             <Route exact path="/examschedule">
+              <OfflineExamSchedule/>
+             </Route>
               <Route>
                 <ErrorPage />
               </Route>
