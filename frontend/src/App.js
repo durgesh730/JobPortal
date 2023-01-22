@@ -24,6 +24,7 @@ import Admin from "./component/Admin";
 import isAuth, { userType,subscriptionType } from "./lib/isAuth";
 import Subscription from "./component/Subscription";
 import Resumerevie from "./component/admin/Resume";
+import OfflineExamSchedule from "./component/OfflineExamSchedule";
 
 
 
@@ -63,7 +64,7 @@ function App() {
     severity: "",
     message: "",
   });
-  const [subscription,setSubscription] = useState(true);
+
 
 
   return (
@@ -121,7 +122,9 @@ function App() {
               {/* <Route exact path="/subscription">
              <Subscription/>
               </Route> */}
-             
+             <Route exact path="/examschedule">
+              <OfflineExamSchedule/>
+             </Route>
               <Route>
                 <ErrorPage />
               </Route>

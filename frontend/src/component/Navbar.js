@@ -9,6 +9,7 @@ import { useHistory } from "react-router-dom";
 import React, { useState } from "react";
 import isAuth, { userType, subscriptionType } from "../lib/isAuth";
 import Subscription from "./Subscription";
+import OfflineExamSchedule from "./OfflineExamSchedule";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,16 +37,25 @@ const Navbar = (props) => {
   return (
     <AppBar position="fixed">
       <Toolbar>
-        <Typography variant="h6" className={classes.title}>
-          Job Portal
-          <Button onClick={() => setSubscription(true)}>
-            Buy Subscription
-          </Button>
-          <Subscription
-            open={openSubscription}
-            onClose={() => setSubscription(false)}
-          />
-        </Typography>
+        {isAuth() ? (
+          <Typography variant="h6" className={classes.title}>
+            Job Portal
+            <Button onClick={() => setSubscription(true)}>
+              Buy Subscription
+            </Button>
+            <Subscription
+              open={openSubscription}
+              onClose={() => setSubscription(false)}
+            />
+            <Button onClick={() => handleClick("/examschedule")}>
+              Schedule Exam
+            </Button>
+          </Typography>
+        ) : (
+          <Typography variant="h6" className={classes.title}>
+            Job Portal
+          </Typography>
+        )}
         {isAuth() ? (
           userType() === "recruiter" ? (
             <>
