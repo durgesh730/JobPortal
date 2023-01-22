@@ -20,8 +20,10 @@ import JobApplications from "./component/recruiter/JobApplications";
 import AcceptedApplicants from "./component/recruiter/AcceptedApplicants";
 import RecruiterProfile from "./component/recruiter/Profile";
 import MessagePopup from "./lib/MessagePopup";
+import Admin from "./component/Admin";
 import isAuth, { userType,subscriptionType } from "./lib/isAuth";
 import Subscription from "./component/Subscription";
+import Resumerevie from "./component/admin/Resume";
 import OfflineExamSchedule from "./component/OfflineExamSchedule";
 
 
@@ -77,6 +79,9 @@ function App() {
               <Route exact path="/">
                 <Welcome />
               </Route>
+              <Route exact path="/admin">
+                <Admin/>
+              </Route>
               <Route exact path="/login">
                 <Login />
               </Route>
@@ -88,6 +93,9 @@ function App() {
               </Route>
               <Route exact path="/home">
                 <Home />
+              </Route>
+              <Route exact path="/admin/review_resume">
+                <Resumerevie />
               </Route>
               <Route exact path="/applications">
                 <Applications />

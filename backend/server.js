@@ -56,12 +56,7 @@ app.use("/auth", require("./routes/authRoutes"));
 app.use("/api", require("./routes/apiRoutes"));
 app.use("/upload", require("./routes/uploadRoutes"));
 app.use("/host", require("./routes/downloadRoutes"));
-
-
- const instance = new Razorpay({
-  key_id: "rzp_live_pMbjbGIcXsozLN",
-  key_secret: "2VxOhHN37vLogkp3izJFeyIo",
-});
+app.use("/admin" , require("./routes/adminRoute"))
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}!`);

@@ -78,6 +78,21 @@ const Navbar = (props) => {
                 Logout
               </Button>
             </>
+          ) : userType() === "Admin" ? (
+            <>
+            <Button color="inherit" onClick={() => handleClick("/admin/review_resume")}>
+              Review Resume
+            </Button>
+            <Button
+              color="inherit"
+              onClick={() => handleClick("/applications")}
+            >
+              Applications
+            </Button>
+            <Button color="inherit" onClick={() => handleClick("/logout")}>
+              Logout
+            </Button>
+          </>
           ) : (
             <>
               <Button color="inherit" onClick={() => handleClick("/home")}>
@@ -99,6 +114,9 @@ const Navbar = (props) => {
           )
         ) : (
           <>
+            <Button color="inherit" onClick={() => handleClick("/admin")}>
+              Admin
+            </Button>
             <Button color="inherit" onClick={() => handleClick("/login")}>
               Login
             </Button>

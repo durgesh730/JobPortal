@@ -36,7 +36,7 @@ router.post('/examSchedule', (req,res) => {
 
   exam.save().then(() => {
     // res.send("Exam scheduled successfully")
-    //res.json({ message: "Exam Schedule added successfully to the database" });
+    res.json({ message: "Exam Schedule added successfully to the database" });
     // alert("Exam scheduled successfully");
   })
   .catch((err) => {

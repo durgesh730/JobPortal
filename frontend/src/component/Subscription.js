@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 import React from "react";
-import svg from "../logo192.png"
 
 function loadScript(src) {
     return new Promise((resolve) => {

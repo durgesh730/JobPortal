@@ -15,11 +15,10 @@ let schema = new mongoose.Schema(
       required: true,
       default: Date.now,
     },
-    // time: {
-    //     type: Number,
-    //     required: true,
-
-    // }
+    time: {
+        type: String,
+        required: true,
+    }
   },
 
   { collection: "examForms" }
