@@ -1,4 +1,4 @@
-import {useHistory} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { useContext, useState } from "react";
 import "./formInput.css";
 import FormInput from "./ExamFormInput";
@@ -9,7 +9,7 @@ import { SetPopupContext } from "../App";
 
 
 const OfflineExamSchedule = () => {
- 
+    const [bool, setbool] = useState(false);
     const setPopup = useContext(SetPopupContext);
     const [values, setValues] = useState({
       location: "",
@@ -51,30 +51,24 @@ const OfflineExamSchedule = () => {
         setValues({ ...values, [e.target.name]: e.target.value });
       };
 
-      console.log(values)
-    const handleSubmit = () => {
-      
+    console.log(values)
+    const handleSubmit = (e) => {
+      e.preventDefault();
       console.log(values);
       axios.post(apiList.examschedule,values)
       .then((response) => {
-        console.log(response)
-        // setPopup({
-        //     open:true,
-        //     severity: "success",
-        //     // message: response.data.message,
-        // });
-
+        console.log(response);
+        setbool(true);
       })
       .catch((err) => {
-        // setPopup({
-        //     open:true,
-        //     severity: "error",
-        //     message: err.response.data.message,
-        // });
         console.log(err.response);
       });
     };
 
+
+    if(bool === true){
+      return <Redirect to="/home" />
+    }
 // const PostData = async (e) => {
 //   const history = useHistory();
 //   e.preventDefault();
@@ -107,7 +101,7 @@ const OfflineExamSchedule = () => {
   
     return (
       <div className="app">
-        <form method="POST" >
+        <form onSubmit={(e)=>{handleSubmit(e)}} method="POST" >
           <h1>Schedule Exam</h1>
           {inputs.map((input) => (
             <FormInput

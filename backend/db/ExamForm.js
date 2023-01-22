@@ -4,7 +4,7 @@ let schema = new mongoose.Schema(
     {
         userId: {
             type: mongoose.Schema.Types.ObjectId,
-            required: true,
+            required: false,
         },
         location: {
             type: String,
@@ -19,11 +19,11 @@ let schema = new mongoose.Schema(
         //   required: true,
         //   validate: Number.isInteger,
         },
-        time: {
-            type: Number,
-            required: true,
+        // time: {
+        //     type: Number,
+        //     required: true,
             
-        }
+        // }
     }
 );
 

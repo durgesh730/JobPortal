@@ -13,25 +13,24 @@ const examDetails = require("../db/ExamForm");
 const router = express.Router();
 
 //To schedule exam
-router.post("/examSchedule", jwtAuth, (req,res) => {
+router.post("/examSchedule", (req,res) => {
   const user = req.user;
-console.log("received data")
-  if(user.type != "applicant") {
-    res.status(401).json({
-      message: "Sorry recruiter can't schedule exams",
-    });
-    return;
-  }
+  // if(user.type != "applicant") {
+  //   res.status(401).json({
+  //     message: "Sorry recruiter can't schedule exams",
+  //   });
+  //   return;
+  // }
 
   const data = req.body;
 
   let exam = new examDetails({
-    userId: user._id,
+    // userId: user._id,
     location: data.location,
     date: data.date,
     time: data.time,
   });
-console.log(user);
+  console.log(user);
 
   exam.save().then(() => {
     res.json({ message: "Exam Schedule added successfully to the database" });
