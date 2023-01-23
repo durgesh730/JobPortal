@@ -16,7 +16,7 @@ const ViewUsers = () => {
       }
     });
     const data = await res.json()
-    // console.log(data);
+    console.log(data);
     setData(data)
   }
 
@@ -54,10 +54,10 @@ const ViewUsers = () => {
   return (
     <>
 
-    <div className='start' >
+    <div className='start'>
 
       <div className='name'>
-        <span className='heading' > Name </span> <br></br>
+        <span className='heading'> Name </span> <br></br>
         {
           name?.map((set) => {
             return (<span> {set.name} <br></br> </span>)
@@ -71,16 +71,18 @@ const ViewUsers = () => {
             <tr>
               <th className="col">Email Id</th>
               <th className="col">Type</th>
+              <th className="col">Subscription</th>
             </tr>
           </thead>
 
           {data?.map((not) =>
             <>
               <tbody>
-                <tr>
+                <tr className='sub'>
                   {/* <td>name</td> */}
                   <td>{not.email}</td>
                   <td>{not.type}</td>
+                  <td>{not.subscription}</td>
                 </tr>
               </tbody>
             </>

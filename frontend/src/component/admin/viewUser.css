@@ -12,12 +12,16 @@
     border-bottom-left-radius: .5rem;
 }
 
-.heading {
-    font: 700;
+.name  .heading{
+      font: 600;
 }
 
 .start {
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+.sub td{
+   padding-left: 2rem;
 }
