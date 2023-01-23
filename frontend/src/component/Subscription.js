@@ -46,6 +46,8 @@ const Subscription = ({open,onClose}) => {
                   signatre: response.razorpay_signature,
               });
               console.log(PaymentStatus);
+              alert("Payment Successfull");
+              onClose();
           },
           prefill: {
               name: "demo",
