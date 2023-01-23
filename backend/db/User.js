@@ -21,9 +21,9 @@ let schema = new mongoose.Schema(
     },
     subscription: {
       type: String,
-      enum: ["basic","premium"],
+      enum: ["none","basic","premium"],
       required: false,
-      default: "basic",
+      default: "none",
     },
     
   },
