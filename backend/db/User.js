@@ -23,7 +23,8 @@ let schema = new mongoose.Schema(
     //   type: String,
     //   enum: ["none","basic","premium"],
     //   required: false,
-    // }
+    // },
+    
   },
   { collation: { locale: "en" } }
 );

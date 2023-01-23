@@ -116,5 +116,6 @@ const OfflineExamSchedule = () => {
       </div>
     );
   };
-  
-  export default OfflineExamSchedule;
+ 
+
+export default OfflineExamSchedule;
