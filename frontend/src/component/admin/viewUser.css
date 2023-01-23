@@ -1,5 +1,23 @@
-.info{
-  border: 1px solid black ;
-  padding: 1rem;
-  border-radius:.3rem;
+.info {
+    border: 1px solid black;
+    padding: 1rem;
+    border-top-right-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+}
+
+.name {
+    border: 1px solid black;
+    padding: 1rem;
+    border-top-left-radius: .5rem;
+    border-bottom-left-radius: .5rem;
+}
+
+.heading {
+    font: 700;
+}
+
+.start {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }

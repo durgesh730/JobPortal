@@ -14,15 +14,15 @@ const { response } = require("express");
 const router = express.Router();
 
 //To schedule exam
-router.post('/examSchedule', (req,res) => {
-//    const user = req.user;
-// console.log("received data")
-//   if(user.type!= "applicant") {
-//     res.status(401).json({
-//       message: "Sorry recruiter can't schedule exams",
-//     });
-//     return;
-//   }
+router.post('/examSchedule', (req, res) => {
+  //    const user = req.user;
+  // console.log("received data")
+  //   if(user.type!= "applicant") {
+  //     res.status(401).json({
+  //       message: "Sorry recruiter can't schedule exams",
+  //     });
+  //     return;
+  //   }
 
   const data = req.body;
 
@@ -30,18 +30,18 @@ router.post('/examSchedule', (req,res) => {
     //  userId: user.userId,
     location: data.location,
     date: data.date,
-     time: data.time,
+    time: data.time,
   });
-// console.log(user);
+  // console.log(user);
 
   exam.save().then(() => {
     // res.send("Exam scheduled successfully")
     res.json({ message: "Exam Schedule added successfully to the database" });
     // alert("Exam scheduled successfully");
   })
-  .catch((err) => {
-    res.status(400).json(err);
-  });
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 })
 
 
@@ -51,31 +51,42 @@ router.post('/examSchedule', (req,res) => {
 
 //  fetch user data from userauth ( for email and type )
 
-router.get('/fetchUsersData', async (req, res)=>{
-   try {
-     const data = await User.find(req.params._id)
+router.get('/fetchUsersData', async (req, res) => {
+  try {
+    const data = await User.find(req.params._id)
     //  console.log(d);
-     res.json(data)
-   } catch (error) {
+    res.json(data)
+  } catch (error) {
     console.error(error.message);
     res.status(400).send("Some error occured")
-   }
+  }
 })
 
 //  fetch user data from jobapplicantinfos 
 
-router.get('/applicantData', async (req, res)=>{
+router.get('/applicantData', async (req, res) => {
   try {
     const applicant = await JobApplicant.find(req.params._id)
     // console.log(d);
     res.json(applicant)
   } catch (error) {
-   console.error(error.message);
-   res.status(400).send("Some error occured")
+    console.error(error.message);
+    res.status(400).send("Some error occured")
   }
 })
 
+// fetch user data from examform
 
+router.get('/examform', async (req, res) => {
+  try {
+    
+     const form = await examDetails.find(req.params._id)
+     res.json( form )
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).send("Some error occured")
+  }
+})
 
 
 

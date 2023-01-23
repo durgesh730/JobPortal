@@ -6,6 +6,7 @@ const ViewUsers = () => {
 
   const [name, setName] = useState();
   const [data, setData] = useState();
+  const [form, setForm] = useState()
 
   const userData = async () => {
     const res = await fetch(`http://localhost:4444/api/fetchUsersData`, {
@@ -15,7 +16,7 @@ const ViewUsers = () => {
       }
     });
     const data = await res.json()
-    console.log(data);
+    // console.log(data);
     setData(data)
   }
 
@@ -36,22 +37,48 @@ const ViewUsers = () => {
     userName()
   }, [setData])
 
+
+  const handleOpen = async () => {
+    const data = await fetch(`http://localhost:4444/api//examform`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    const res = await data.json()
+    console.log(res);
+    setName(res);
+
+  }
+
   return (
     <>
+
+    <div className='start' >
+
+      <div className='name'>
+        <span className='heading' > Name </span> <br></br>
+        {
+          name?.map((set) => {
+            return (<span> {set.name} <br></br> </span>)
+          })
+        }
+      </div>
+
       <div className='info' >
         <table class="table">
           <thead class="thead-dark">
             <tr>
-              <th className="col">Name</th>
               <th className="col">Email Id</th>
               <th className="col">Type</th>
             </tr>
           </thead>
+
           {data?.map((not) =>
             <>
               <tbody>
                 <tr>
-                  <td>name</td>
+                  {/* <td>name</td> */}
                   <td>{not.email}</td>
                   <td>{not.type}</td>
                 </tr>
@@ -60,6 +87,9 @@ const ViewUsers = () => {
           )}
         </table>
       </div>
+
+      </div>
+      <button onClick={handleOpen} >form</button>
 
     </>
   )
