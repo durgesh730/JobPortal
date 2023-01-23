@@ -23,8 +23,9 @@ import MessagePopup from "./lib/MessagePopup";
 import Admin from "./component/Admin";
 import isAuth, { userType,subscriptionType } from "./lib/isAuth";
 import Subscription from "./component/Subscription";
-import Resumerevie from "./component/admin/Resume";
+import Resumerevie from "./component/admin/Resumerevie";
 import OfflineExamSchedule from "./component/OfflineExamSchedule";
+import Resume from "./component/Resume";
 
 
 
@@ -124,6 +125,9 @@ function App() {
               </Route> */}
              <Route exact path="/examschedule">
               <OfflineExamSchedule/>
+             </Route>
+             <Route>
+                <Resume exact path="/myresume"/>
              </Route>
               <Route>
                 <ErrorPage />
