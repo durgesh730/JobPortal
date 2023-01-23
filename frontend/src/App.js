@@ -23,9 +23,9 @@ import MessagePopup from "./lib/MessagePopup";
 import Admin from "./component/Admin";
 import isAuth, { userType,subscriptionType } from "./lib/isAuth";
 import Subscription from "./component/Subscription";
-import Resumerevie from "./component/admin/Resume";
+import Resumereview from "./component/admin/Resume";
 import OfflineExamSchedule from "./component/OfflineExamSchedule";
-
+import MyUsers from "./component/admin/viewUsers";
 
 
 function loadScript(src) {
@@ -95,7 +95,12 @@ function App() {
                 <Home />
               </Route>
               <Route exact path="/admin/review_resume">
-                <Resumerevie />
+                <Resumereview />
+              </Route>
+              <Route exact path="/admin/viewUsers">
+                {userType() != "recruiter" || "applicant" ? (
+                  <MyUsers />
+                ) : <></>}
               </Route>
               <Route exact path="/applications">
                 <Applications />
