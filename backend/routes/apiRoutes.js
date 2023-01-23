@@ -47,6 +47,39 @@ router.post('/examSchedule', (req,res) => {
 
 
 
+
+
+//  fetch user data from userauth ( for email and type )
+
+router.get('/fetchUsersData', async (req, res)=>{
+   try {
+     const data = await User.find(req.params._id)
+    //  console.log(d);
+     res.json(data)
+   } catch (error) {
+    console.error(error.message);
+    res.status(400).send("Some error occured")
+   }
+})
+
+//  fetch user data from jobapplicantinfos 
+
+router.get('/applicantData', async (req, res)=>{
+  try {
+    const applicant = await JobApplicant.find(req.params._id)
+    // console.log(d);
+    res.json(applicant)
+  } catch (error) {
+   console.error(error.message);
+   res.status(400).send("Some error occured")
+  }
+})
+
+
+
+
+
+
 // To add new job
 router.post("/jobs", jwtAuth, (req, res) => {
   const user = req.user;

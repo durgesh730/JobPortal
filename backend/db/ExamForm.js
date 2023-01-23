@@ -18,7 +18,18 @@ let schema = new mongoose.Schema(
     time: {
         type: String,
         required: true,
+    },
+    score:{
+      type:Number,
+      required:false,
+      default:0
+    },
+    is_verified:{
+      type:Boolean,
+      required:false,
+      default:false
     }
+
   },
 
   { collection: "examForms" }
