@@ -15,7 +15,7 @@ const Skills = (props) => {
                             return (
                                 <>
                                     <div >
-                                        <input type="text" placehovallder={item.skillHead} onChange={(event)=>{prop.skills[index].skillHead = event.target.value}} />
+                                        <input type="text" placeholder={item.skillHead} onChange={(event)=>{prop.skills[index].skillHead = event.target.value}} />
                                         <input type="text" placeholder={item.skillDesc} onChange={(event)=>{prop.skills[index].skillDesc = event.target.value}} />
                                     </div>
                                     <br/>
@@ -27,8 +27,7 @@ const Skills = (props) => {
                             )
                         }
                     })}
-                    <Button
-                                variant="contained"
+                    <Button style={{display:prop.skills.length === 0 ? "none":""}} variant="contained"
                                 color="primary"
                                 onClick={() => { prop.setSkillDisplay("none") }}
                             >
@@ -36,41 +35,37 @@ const Skills = (props) => {
                             </Button>
                     <br/><hr/><br/>
 
-                    <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={() => {setbool("block")}}
-                            >
-                                Add New
-                            </Button>
+                    <Button style={{display:`${bool === "none" ? "":"none"}`}} variant="contained" color="primary" onClick={() => {setbool("block")}}>Add New</Button>
                     <div style={{display:`${bool}`}}>
                         <h1>Add New</h1>
-                        <Grid item>
-                            <TextField
-                                label="Skill"
-                                value={s.skillHead}
-                                onChange={(event) => sets({ ...s, skillHead: event.target.value })}
-                                variant="outlined"
-                                required
-                            />
-                        </Grid>
-                        <Grid item>
-                            <TextField
-                                label="Skill Description"
-                                value={s.skillDesc}
-                                onChange={(event) => sets({ ...s, skillDesc: event.target.value })}
-                                variant="outlined"
-                                required
-                            />
-                        </Grid>
-                        <Grid item>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={() => {prop.addSkill(s) ; setbool("none") }}
-                            >
-                                Save
-                            </Button>
+                        <Grid container direction='column' spacing={4} >
+                            <Grid item>
+                                <TextField
+                                    label="Skill"
+                                    value={s.skillHead}
+                                    onChange={(event) => sets({ ...s, skillHead: event.target.value })}
+                                    variant="outlined"
+                                    required
+                                />
+                            </Grid>
+                            <Grid item>
+                                <TextField
+                                    label="Skill Description"
+                                    value={s.skillDesc}
+                                    onChange={(event) => sets({ ...s, skillDesc: event.target.value })}
+                                    variant="outlined"
+                                    required
+                                />
+                            </Grid>
+                            <Grid item>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={() => {prop.addSkill(s) ; setbool("none") }}
+                                >
+                                    Save
+                                </Button>
+                            </Grid>
                         </Grid>
                     </div>
                 </Grid>
