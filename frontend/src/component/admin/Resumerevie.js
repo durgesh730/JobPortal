@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Resumerevie = () => {
+const Resumereview = () => {
     return(
         <>
             This is resume page
@@ -8,4 +8,4 @@ const Resumerevie = () => {
     )
 }
 
-export default Resumerevie;
+export default Resumereview;

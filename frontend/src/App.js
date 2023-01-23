@@ -23,10 +23,10 @@ import MessagePopup from "./lib/MessagePopup";
 import Admin from "./component/Admin";
 import isAuth, { userType,subscriptionType } from "./lib/isAuth";
 import Subscription from "./component/Subscription";
-import Resumerevie from "./component/admin/Resumerevie";
+import Resumereview from "./component/admin/Resumerevie";
 import OfflineExamSchedule from "./component/OfflineExamSchedule";
 import Resume from "./component/Resume";
-
+import MyUsers from "./component/admin/viewUsers";
 
 
 function loadScript(src) {
@@ -96,7 +96,12 @@ function App() {
                 <Home />
               </Route>
               <Route exact path="/admin/review_resume">
-                <Resumerevie />
+                <Resumereview />
+              </Route>
+              <Route exact path="/admin/viewUsers">
+                {userType() != "recruiter" || "applicant" ? (
+                  <MyUsers />
+                ) : <></>}
               </Route>
               <Route exact path="/applications">
                 <Applications />

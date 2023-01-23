@@ -19,11 +19,12 @@ let schema = new mongoose.Schema(
       enum: ["recruiter", "applicant"],
       required: true,
     },
-    // subscription: {
-    //   type: String,
-    //   enum: ["none","basic","premium"],
-    //   required: false,
-    // },
+    subscription: {
+      type: String,
+      enum: ["basic","premium"],
+      required: false,
+      default: "basic",
+    },
     
   },
   { collation: { locale: "en" } }
