@@ -37,28 +37,28 @@ const Navbar = (props) => {
   return (
     <AppBar position="fixed">
       <Toolbar>
-        {isAuth() ? (
+        {/* {isAuth() ? (
           <Typography variant="h6" className={classes.title}>
             Job Portal
-            <Button onClick={() => setSubscription(true)}>
-              Buy Subscription
-            </Button>
-            <Subscription
-              open={openSubscription}
-              onClose={() => setSubscription(false)}
-            />
-            <Button onClick={() => handleClick("/examschedule")}>
-              Schedule Exam
-            </Button>
           </Typography>
         ) : (
           <Typography variant="h6" className={classes.title}>
             Job Portal
           </Typography>
-        )}
+        )} */}
         {isAuth() ? (
           userType() === "recruiter" ? (
             <>
+            <Typography variant="h6" className={classes.title}>
+            Job Portal - Recruiter
+          </Typography>
+              <Button color="inherit" onClick={() => setSubscription(true)}>
+                Buy Subscription
+              </Button>
+              <Subscription
+                open={openSubscription}
+                onClose={() => setSubscription(false)}
+              />
               <Button color="inherit" onClick={() => handleClick("/home")}>
                 Home
               </Button>
@@ -80,21 +80,42 @@ const Navbar = (props) => {
             </>
           ) : userType() === "Admin" ? (
             <>
-            <Button color="inherit" onClick={() => handleClick("/admin/review_resume")}>
-              Review Resume
-            </Button>
-            <Button
-              color="inherit"
-              onClick={() => handleClick("/applications")}
-            >
-              Applications
-            </Button>
-            <Button color="inherit" onClick={() => handleClick("/logout")}>
-              Logout
-            </Button>
-          </>
+            <Typography variant="h6" className={classes.title}>
+            Job Portal - Admin
+          </Typography>
+          <Button color="inherit" onClick={() => handleClick("/admin/viewUsers")}>View Users</Button>
+              <Button
+                color="inherit"
+                onClick={() => handleClick("/admin/review_resume")}
+              >
+                Review Resume
+              </Button>
+              <Button
+                color="inherit"
+                onClick={() => handleClick("/applications")}
+              >
+                Applications
+              </Button>
+              <Button color="inherit" onClick={() => handleClick("/logout")}>
+                Logout
+              </Button>
+            </>
           ) : (
             <>
+            
+              <Typography variant="h6" className={classes.title}>
+                Job Portal - Applicant
+              </Typography>
+              <Button color="inherit" onClick={() => setSubscription(true)}>
+                  Buy Subscription
+                </Button>
+                <Subscription
+                  open={openSubscription}
+                  onClose={() => setSubscription(false)}
+                />
+                <Button color="inherit" onClick={() => handleClick("/examschedule")}>
+                  Schedule Exam
+                </Button>
               <Button color="inherit" onClick={() => handleClick("/home")}>
                 Home
               </Button>
@@ -114,6 +135,9 @@ const Navbar = (props) => {
           )
         ) : (
           <>
+           <Typography variant="h6" className={classes.title}>
+            Job Portal
+          </Typography>
             <Button color="inherit" onClick={() => handleClick("/admin")}>
               Admin
             </Button>
