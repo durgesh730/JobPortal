@@ -72,4 +72,9 @@ a#pdf:hover { background: #222; }
 .yui-gf .yui-u{width:80.2%;}
 .yui-gf div.first{width:12.3%;}
 
-
+.skillBox{
+    min-width: 32%;
+    border: 1px solid;
+    padding: 0% 0% 0% 2%;
+    margin: 1%;
+}

@@ -6,7 +6,7 @@ import Axios from "axios";
 import { SetPopupContext } from "../App";
 
 const FileUploadInput = (props) => {
-  const setPopup = useContext(SetPopupContext);
+  const auth= useContext(SetPopupContext);
 
   const { uploadTo, identifier, handleInput } = props;
 
@@ -32,7 +32,7 @@ const FileUploadInput = (props) => {
       .then((response) => {
         console.log(response.data);
         handleInput(identifier, response.data.url);
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "success",
           message: response.data.message,
@@ -40,7 +40,7 @@ const FileUploadInput = (props) => {
       })
       .catch((err) => {
         console.log(err.response);
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "error",
           message: err.response.statusText,

@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { Paper, Grid, Typography, Button, makeStyles } from '@material-ui/core';
+import React, { useContext, useState } from 'react';
+import { Paper, Grid, Typography, Button, makeStyles} from '@material-ui/core';
 import './resume.css';
 import BasicInfo from './editor/BasicInfo';
 import Skills from './editor/Skills';
 import Experience from './editor/Experience';
 import Education from './editor/Education';
+import { SetPopupContext } from "../App";
+
 
 const useStyles = makeStyles((theme) => ({
     body: {
@@ -19,35 +21,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Resume = () => {
+    const auth = useContext(SetPopupContext);
     const classes = useStyles();
     const handleResume = (e) => {
         e.preventDefault();
     }
-    const [basicInfo, setbasicInfo] = useState({
-        name: "Your Name",
-        title: "Your Job Title",
-        email: "example@gmail.com",
-        mobile: "Your Mobile No.",
-        description: "Your brief description"
-    })
-    const [skills, setSkills] = useState([]);
-    const [experience, setexperience] = useState([]);
-    const [education, seteducation] = useState([]);
+    let basicInfo = auth.basicInfo;
+    let setbasicInfo = auth.setbasicInfo
+    let skills = auth.skills;
+    let addSkill = auth.addSkill;
+    let experience = auth.experience;
+    let addExpereince = auth.addExpereince;
+    let education = auth.education;
+    let addEducation = auth.addEducation;
 
     const [idisplay, setIdisplay] = useState('none');
     const [SkillDisplay, setSkillDisplay] = useState("none");
     const [expDisplay, setexpDisplay] = useState("none");
     const [eduDisplay, seteduDisplay] = useState("none")
 
-    const addSkill = (item) => {
-        skills.push(item);
-    };
-    const addExpereince = (item) => {
-        experience.push(item)
-    };
-    const addEducation = (item) => {
-        education.push(item);
-    }
     console.log(experience)
     return (
         <>
@@ -74,8 +66,8 @@ const Resume = () => {
 
                                     <div class="yui-u">
                                         <div class="contact-info">
-                                            <h3><a href={basicInfo.email}>{basicInfo.email}</a></h3>
-                                            <h3>{basicInfo.mobile}</h3>
+                                            <h3><a href={auth.basicInfo.email}>{auth.basicInfo.email}</a></h3>
+                                            <h3>{auth.basicInfo.mobile}</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -90,7 +82,7 @@ const Resume = () => {
                                             </div>
                                             <div class="yui-u">
                                                 <p class="enlarge">
-                                                    {basicInfo.description}
+                                                    {auth.basicInfo.description}
                                                 </p>
                                             </div>
                                         </div>
@@ -103,15 +95,15 @@ const Resume = () => {
                                             </div>
                                             <br />
                                             <div class="yui-u">
+                                            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                                                 {Array.from(skills).map((item, index) => {
                                                     if (item) {
                                                         return (
-                                                            <>
-                                                                <div>
+                                                            <Grid item xs={2} sm={4} md={4} key={index}>
+                                                                <div className='skillBox'>
                                                                     <h2>{item.skillHead}</h2>
-                                                                    <p>{item.skillDesc}</p>
                                                                 </div>
-                                                            </>
+                                                            </Grid>
                                                         )
                                                     } else {
                                                         return (
@@ -119,6 +111,7 @@ const Resume = () => {
                                                         )
                                                     }
                                                 })}
+                                            </Grid>
                                             </div>
                                         </div>
                                         <div class="yui-gf">

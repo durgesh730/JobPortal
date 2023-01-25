@@ -3,7 +3,7 @@ import { Grid, TextField, Button } from '@material-ui/core';
 
 const Skills = (props) => {
     const prop = props.props;
-    const [s, sets] = useState({ skillHead: "Skill Heading", skillDesc: "Describe Your Skill" });
+    const [s, sets] = useState({ skillHead: "Skill"});
     const [bool, setbool] = useState('none');
     return (
         <>
@@ -16,7 +16,6 @@ const Skills = (props) => {
                                 <>
                                     <div >
                                         <input type="text" placeholder={item.skillHead} onChange={(event)=>{prop.skills[index].skillHead = event.target.value}} />
-                                        <input type="text" placeholder={item.skillDesc} onChange={(event)=>{prop.skills[index].skillDesc = event.target.value}} />
                                     </div>
                                     <br/>
                                 </>
@@ -44,15 +43,6 @@ const Skills = (props) => {
                                     label="Skill"
                                     value={s.skillHead}
                                     onChange={(event) => sets({ ...s, skillHead: event.target.value })}
-                                    variant="outlined"
-                                    required
-                                />
-                            </Grid>
-                            <Grid item>
-                                <TextField
-                                    label="Skill Description"
-                                    value={s.skillDesc}
-                                    onChange={(event) => sets({ ...s, skillDesc: event.target.value })}
                                     variant="outlined"
                                     required
                                 />

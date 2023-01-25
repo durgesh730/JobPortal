@@ -66,11 +66,28 @@ function App() {
     message: "",
   });
 
-
-
+  const [skills, setSkills] = useState([]);
+  const [experience, setexperience] = useState([]);
+  const [education, seteducation] = useState([]);
+  const addSkill = (item) => {
+    skills.push(item);
+  };
+  const addExpereince = (item) => {
+      experience.push(item)
+  };
+  const addEducation = (item) => {
+      education.push(item);
+  }
+  const [basicInfo, setbasicInfo] = useState({
+    name: "Your Name",
+    title: "Your Job Title",
+    email: "example@gmail.com",
+    mobile: "Your Mobile No.",
+    description: "Your brief description"
+})
   return (
     <BrowserRouter>
-      <SetPopupContext.Provider value={setPopup}>
+      <SetPopupContext.Provider value={{setPopup , basicInfo , setbasicInfo , skills , experience , education , addSkill , addExpereince , addEducation}}>
         <Grid container direction="column">
           <Grid item xs>
             <Navbar />

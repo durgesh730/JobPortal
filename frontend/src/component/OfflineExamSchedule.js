@@ -10,7 +10,7 @@ import { SetPopupContext } from "../App";
 
 const OfflineExamSchedule = () => {
     const [bool, setbool] = useState(false);
-    const setPopup = useContext(SetPopupContext);
+    const auth= useContext(SetPopupContext);
     const [values, setValues] = useState({
       location: "",
       examDate: "",
