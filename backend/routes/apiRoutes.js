@@ -31,6 +31,17 @@ router.post('/examSchedule', (req, res) => {
     location: data.location,
     date: data.date,
     time: data.time,
+
+
+    // =====   data created by durgesh
+    test_name: data.exam,
+    test_dec: data.test_dec,
+    attandance_confirm: data.attandance_confirm,
+    status: data.status,
+    test_document: data.test_document,
+    address: data.address,
+    phone_number: data.phone_number,
+    email: data.email,
   });
   // console.log(user);
 
@@ -43,9 +54,6 @@ router.post('/examSchedule', (req, res) => {
       res.status(400).json(err);
     });
 })
-
-
-
 
 
 
@@ -79,12 +87,57 @@ router.get('/applicantData', async (req, res) => {
 
 router.get('/examform', async (req, res) => {
   try {
-    
-     const form = await examDetails.find(req.params._id)
-     res.json( form )
+    const form = await examDetails.find(req.params._id)
+    res.json(form)
   } catch (error) {
     console.error(error.message);
     res.status(400).send("Some error occured")
+  }
+})
+
+// router.put('/savedata/:id', async (req, res) => {
+//   console.log(req.body);
+// })
+
+// save data user 
+router.put('/savedata/:_id', async (req, res) => {
+  const { location, time, address, phone_number, email } = req.body;
+
+  try {
+    const newData = {};
+    if (location) { newData.location = location };
+    if (time) { newData.time = time };
+    if (address) { newData.address = address };
+    if (phone_number) { newData.phone_number = phone_number };
+    if (email) { newData.email = email }
+
+    // let data = await examDetails.findById(req.params._id);
+    // if (!data) {
+    //   return res.status(404).send("Not Found")
+    // }
+    const userData = await examDetails.findByIdAndUpdate(req.params._id, { $set: newData }, { new: true })
+    res.json({ userData });
+    console.log(userData);
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Some error occured")
+  }
+})
+
+
+// ======== fetch data according user 
+
+router.get('/examUserData/:_id', async (req, res) => {
+  try {
+
+    const data = await examDetails.findOne({ _id: req.params._id })
+    res.json(data)
+    console.log(data)
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Some error occured")
   }
 })
 

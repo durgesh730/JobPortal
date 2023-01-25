@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 import './viewUser.css'
 
 
@@ -16,7 +17,7 @@ const ViewUsers = () => {
       }
     });
     const data = await res.json()
-    console.log(data);
+    // console.log(data);
     setData(data)
   }
 
@@ -37,27 +38,13 @@ const ViewUsers = () => {
     userName()
   }, [setData])
 
-
-  const handleOpen = async () => {
-    const data = await fetch(`http://localhost:4444/api//examform`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-    const res = await data.json()
-    console.log(res);
-    setName(res);
-
-  }
-
   return (
     <>
 
     <div className='start'>
 
       <div className='name'>
-        <span className='heading'> Name </span> <br></br>
+        <span className='heading'> <b> Name</b> </span> <br></br>
         {
           name?.map((set) => {
             return (<span> {set.name} <br></br> </span>)
@@ -91,7 +78,8 @@ const ViewUsers = () => {
       </div>
 
       </div>
-      <button onClick={handleOpen} >form</button>
+      
+      <Link  className="b" to={'/examform'}  >form</Link>
 
     </>
   )

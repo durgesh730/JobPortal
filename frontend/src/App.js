@@ -26,6 +26,8 @@ import Subscription from "./component/Subscription";
 import Resumereview from "./component/admin/Resume";
 import OfflineExamSchedule from "./component/OfflineExamSchedule";
 import MyUsers from "./component/admin/ViewUsers";
+import ExamForm from "./component/admin/ExamForm";
+import EditUser from "./component/admin/EditUser";
 
 
 function loadScript(src) {
@@ -82,6 +84,14 @@ function App() {
               <Route exact path="/admin">
                 <Admin/>
               </Route>
+              <Route exact path="/examform">
+                <ExamForm/>
+              </Route>
+
+              <Route exact path="/edituser">
+                 <EditUser/>
+              </Route>
+
               <Route exact path="/login">
                 <Login />
               </Route>

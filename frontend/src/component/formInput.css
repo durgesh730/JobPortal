@@ -1,10 +1,10 @@
-.formInput{
+.formInput {
     display: flex;
     flex-direction: column;
     width: 280px;
 }
 
-.examFormInput{
+.examFormInput {
     padding: 15px;
     margin: 10px 0px;
     border-radius: 5px;
@@ -17,22 +17,54 @@
     color: gray;
 } */
 
-.span1{
+.span1 {
     font-size: 12px;
     padding: 3px;
     color: red;
     display: none;
 }
 
-input:invalid[focused="true"]{
+input:invalid[focused="true"] {
     border: 1px solid red;
 }
 
-input:invalid[focused="true"] ~ span{
+input:invalid[focused="true"]~span {
     display: block;
 }
 
-.app {
+/* ================ offline Exam Schedule ================ */
+
+.modal_box {
+    text-align: center;
+    padding-top: 8rem;
+    color: white;
+}
+
+.box{
+    text-align: center;
+    margin: auto;
+    justify-content: center;
+     width: 10rem;
+    border: 1px solid white ;
+    border-radius: .3rem;
+    padding: 2rem 4rem;
+}
+
+.option{
+    color: white;
+}
+
+.modal_btn{
+    margin-top: 2rem;
+}
+
+.modal_btn button {
+    background-color: blue;
+    color: white;
+}
+
+
+/* .app {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -66,4 +98,4 @@ input:invalid[focused="true"] ~ span{
       cursor: pointer;
       margin-top: 15px;
       margin-bottom: 30px;
-  }
+  } */

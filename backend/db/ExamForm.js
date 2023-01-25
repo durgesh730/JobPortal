@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+require("mongoose-type-email");
+
 
 let schema = new mongoose.Schema(
   {
@@ -6,9 +8,19 @@ let schema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       required: false,
     },
+    test_name: {
+      type: String,
+      required: true
+    },
+    test_dec: {
+      type: String,
+      required: false,
+      default:"Pending"
+    },
     location: {
       type: String,
-      required: true,
+      required: false,
+      default:"Pending"
     },
     date: {
       type: Date,
@@ -16,23 +28,52 @@ let schema = new mongoose.Schema(
       default: Date.now,
     },
     time: {
-        type: String,
-        required: true,
-    },
-    score:{
-      type:Number,
+      type: String,
       required:false,
-      default:0
+      default:"Pending"
     },
-    is_verified:{
-      type:Boolean,
-      required:false,
+    attandance_confirm: {
+      type: Boolean,
+      required: false,
       default:false
+    },
+    status: {
+      type: String,
+      required: false,
+      default:"Pending"
+    },
+    test_document: {
+      type: String,
+      required: false,
+      default:"Pending"
+    },
+    address: {
+      type: String,
+      required: false,
+      default:"Pending"
+    },
+    phone_number: {
+      type: Number,
+      required: false,
+      default:"Pending"
+    },
+    email: {
+      type: mongoose.SchemaTypes.Email,
+      required: false,
     }
-
+    // score: {
+    //   type: Number,
+    //   required: false,
+    //   default: 0
+    // },
+    // is_verified: {
+    //   type: Boolean,
+    //   required: false,
+    //   default: false
+    // },
   },
-
-  { collection: "examForms" }
+  { collection: "examForms" },
+  // { typeKey: '$type' }
 );
 
 module.exports = mongoose.model("examForm", schema);

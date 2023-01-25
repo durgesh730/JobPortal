@@ -25,3 +25,96 @@
 .sub td{
    padding-left: 2rem;
 }
+
+/* ================== form css ================== */
+.form_buttom{
+    display: flex;
+    gap: .5rem;
+    cursor: pointer;
+}
+
+.form_buttom a{
+    padding: .5rem 1rem;
+    text-decoration: none;
+    color: white;
+    border-radius: .3rem;
+    background-color: blue;
+    
+   /* border: 1px solid black ; */
+}
+
+/* ================== editform css ================ */
+
+/* .editform{
+    padding-top: 9rem;
+    color: white;
+}
+
+.editdetails{
+    margin: auto;
+} */
+
+.modal {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* ==============  css btn   */
+
+  .form-btn{
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .form-btn .btn {
+    cursor: pointer;
+     background-color: blue;
+     color: white;
+     padding: .5rem 1rem;
+     border: none;
+  }
+
+  .inputs{
+     display: grid;
+     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .inputBox input {
+    padding: .3rem;
+    border-radius: .3rem;
+  } 
