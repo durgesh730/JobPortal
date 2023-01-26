@@ -26,8 +26,11 @@ import Subscription from "./component/Subscription";
 import Resumereview from "./component/admin/Resumerevie";
 import OfflineExamSchedule from "./component/OfflineExamSchedule";
 import Resume from "./component/Resume";
-import MyUsers from "./component/admin/ViewUsers";
 import apiList from "./lib/apiList";
+import MyUsers from "./component/admin/ViewUsers";
+import ExamForm from "./component/admin/ExamForm";
+import EditUser from "./component/admin/EditUser";
+
 
 function loadScript(src) {
   return new Promise((resolve) => {
@@ -102,6 +105,14 @@ function App() {
               <Route exact path="/admin">
                 <Admin />
               </Route>
+              <Route exact path="/examform">
+                <ExamForm/>
+              </Route>
+
+              <Route exact path="/edituser">
+                 <EditUser/>
+              </Route>
+
               <Route exact path="/login">
                 <Login />
               </Route>

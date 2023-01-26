@@ -14,34 +14,147 @@ const { response } = require("express");
 const router = express.Router();
 
 //To schedule exam
-router.post('/examSchedule', (req,res) => {
-//    const user = req.user;
-// console.log("received data")
-//   if(user.type!= "applicant") {
-//     res.status(401).json({
-//       message: "Sorry recruiter can't schedule exams",
-//     });
-//     return;
-//   }
+router.post('/examSchedule', jwtAuth , (req, res) => {
+  const user = req.user;
+  if(user.type!= "applicant") {
+    res.status(401).json({
+      message: "Sorry recruiter can't schedule exams",
+    });
+    return;
+  }
 
   const data = req.body;
 
   let exam = new examDetails({
-    //  userId: user.userId,
+    userId: user._id,
     location: data.location,
     date: data.date,
-     time: data.time,
+    time: data.time,
+
+
+    // =====   data created by durgesh
+    test_name: data.exam,
+    test_dec: data.test_dec,
+    attandance_confirm: data.attandance_confirm,
+    status: data.status,
+    test_document: data.test_document,
+    address: data.address,
+    phone_number: data.phone_number,
+    email: data.email,
   });
-// console.log(user);
+  // console.log(user);
 
   exam.save().then(() => {
     // res.send("Exam scheduled successfully")
     res.json({ message: "Exam Schedule added successfully to the database" });
     // alert("Exam scheduled successfully");
   })
-  .catch((err) => {
-    res.status(400).json(err);
-  });
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+})
+
+
+
+//  fetch user data from userauth ( for email and type )
+
+router.get('/fetchUsersData', async (req, res) => {
+  try {
+    const data = await User.find(req.params._id)
+    //  console.log(d);
+    res.json(data)
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).send("Some error occured")
+  }
+})
+
+//  fetch user data from jobapplicantinfos 
+
+router.get('/applicantData', async (req, res) => {
+  try {
+    const applicant = await JobApplicant.find(req.params._id)
+    // console.log(d);
+    res.json(applicant)
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).send("Some error occured")
+  }
+})
+
+// fetch user data from examform
+
+router.get('/examform', async (req, res) => {
+  try {
+    const form = await examDetails.find(req.params._id)
+    res.json(form)
+  } catch (error) {
+    console.error("message" , error.message);
+    res.status(400).send("Some error occured")
+  }
+})
+
+// router.put('/savedata/:id', async (req, res) => {
+//   console.log(req.body);
+// })
+
+// save data user 
+router.put('/savedata/:_id', async (req, res) => {
+  const { location, time, address, phone_number, email } = req.body;
+
+  try {
+    const newData = {};
+    if (location) { newData.location = location };
+    if (time) { newData.time = time };
+    if (address) { newData.address = address };
+    if (phone_number) { newData.phone_number = phone_number };
+    if (email) { newData.email = email }
+
+    // let data = await examDetails.findById(req.params._id);
+    // if (!data) {
+    //   return res.status(404).send("Not Found")
+    // }
+    const userData = await examDetails.findByIdAndUpdate(req.params._id, { $set: newData }, { new: true })
+    res.json({ userData });
+    console.log(userData);
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Some error occured")
+  }
+})
+
+
+// ======== fetch data according user 
+
+router.get('/examUserData/:_id', jwtAuth ,  async (req, res) => {
+  const user = req.user;
+  try {
+    const data = await examDetails.find({ userId: user._id })
+    res.json(data)
+  } catch (error) {
+    res.status(500).send("Some error occured")
+  }
+})
+
+
+// save attendance data 
+
+router.put('/saveAttendance/:_id', async (req, res) => {
+  const { attandance_confirm } = req.body;
+
+  try {
+    const newData = {};
+    if (attandance_confirm) { newData.attandance_confirm = attandance_confirm };
+
+    const userData = await examDetails.findByIdAndUpdate(req.params._id, { $set: newData }, { new: true })
+    res.json({ userData });
+    console.log(userData);
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Some error occured")
+  }
 })
 
 
