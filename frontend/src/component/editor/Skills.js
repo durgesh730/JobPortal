@@ -3,11 +3,12 @@ import { Grid, TextField, Button } from '@material-ui/core';
 
 const Skills = (props) => {
     const prop = props.props;
-    const [s, sets] = useState({ skillHead: "Skill"});
+    const [s, sets] = useState({ skillHead: ""});
     const [bool, setbool] = useState('none');
     return (
         <>
             <div className='modal' style={{ display: `${prop.SkillDisplay}` }}>
+                <span className='close' onClick={()=>{prop.setSkillDisplay("none")}} >&times;</span>
                 <Grid container direction="column" spacing={4} alignItems="center">
 
                     {Array.from(prop.skills).map((item, index) => {
@@ -44,6 +45,7 @@ const Skills = (props) => {
                                     value={s.skillHead}
                                     onChange={(event) => sets({ ...s, skillHead: event.target.value })}
                                     variant="outlined"
+                                    placeholder='Skill'
                                     required
                                 />
                             </Grid>
@@ -51,9 +53,9 @@ const Skills = (props) => {
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    onClick={() => {prop.addSkill(s) ; setbool("none") }}
+                                    onClick={() => {prop.addSkill(s) ; sets({skillHead: ""}); setbool("none") }}
                                 >
-                                    Save
+                                    Add
                                 </Button>
                             </Grid>
                         </Grid>

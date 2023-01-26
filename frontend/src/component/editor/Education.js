@@ -3,11 +3,12 @@ import { Grid, TextField, Button } from '@material-ui/core';
 
 const Education = (props) => {
     const prop = props.props ;
-    const [s, sets] = useState({ university: "University Name", degree: "your degree" , cgpa : "eg. 8" });
+    const [s, sets] = useState({ university: "", degree: "" , cgpa : "" });
     const [bool, setbool] = useState("none")
     return(
         <>
         <div className='modal' style={{ display: `${prop.eduDisplay}` }}>
+            <span className='close' onClick={()=>{prop.seteduDisplay("none")}} >&times;</span>
                 <Grid container direction="column" spacing={4} alignItems="center">
 
                     {Array.from(prop.education).map((item, index) => {
@@ -42,28 +43,31 @@ const Education = (props) => {
                         <Grid container direction='column' spacing={4} >
                             <Grid item>
                                 <TextField
-                                    label="Company"
+                                    label="University"
                                     value={s.university}
                                     onChange={(event) => sets({ ...s, university: event.target.value })}
                                     variant="outlined"
+                                    placeholder='University Name'
                                     required
                                 />
                             </Grid>
                             <Grid item>
                                 <TextField
-                                    label="Designation"
+                                    label="Degree"
                                     value={s.degree}
                                     onChange={(event) => sets({ ...s, degree: event.target.value })}
                                     variant="outlined"
+                                    placeholder='your degree'
                                     required
                                 />
                             </Grid>
                             <Grid item>
                                 <TextField
-                                    label="education of years"
+                                    label="Percentage or CGPA"
                                     value={s.cgpa}
                                     onChange={(event) => sets({ ...s, cgpa: event.target.value })}
                                     variant="outlined"
+                                    placeholder='eg. 8'
                                     required
                                 />
                             </Grid>
@@ -71,9 +75,9 @@ const Education = (props) => {
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    onClick={() => {prop.addEducation(s) ; setbool("none") }}
+                                    onClick={() => {prop.addEducation(s) ; sets({...s , university: "", degree: "" , cgpa : "" }) ;setbool("none") }}
                                 >
-                                    Save
+                                    Add
                                 </Button>
                             </Grid>
                         </Grid>

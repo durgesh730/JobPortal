@@ -86,3 +86,17 @@ color: black;
     border: 1px solid #a4a1a1;
     border-radius: 15px;
 }
+
+.rsdiv{
+    display: flex;
+    width: 60%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close{
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 30px;
+}

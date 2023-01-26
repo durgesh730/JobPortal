@@ -3,11 +3,12 @@ import { Grid, TextField, Button } from '@material-ui/core';
 
 const Experience = (props) => {
     const prop = props.props ;
-    const [s, sets] = useState({ company: "Company Name", designation: "Designation" , exp : "eg. 1" , desc : "Description of your job" });
+    const [s, sets] = useState({ company: "", designation: "" , exp : "" , desc : "" });
     const [bool, setbool] = useState("none")
     return(
         <>
         <div className='modal' style={{ display: `${prop.expDisplay}` }}>
+                <span className='close' onClick={()=>{prop.setexpDisplay("none")}} >&times;</span>
                 <Grid container direction="column" spacing={4} alignItems="center">
 
                     {Array.from(prop.experience).map((item, index) => {
@@ -47,6 +48,7 @@ const Experience = (props) => {
                                     value={s.company}
                                     onChange={(event) => sets({ ...s, company: event.target.value })}
                                     variant="outlined"
+                                    placeholder='Company Name'
                                     required
                                 />
                             </Grid>
@@ -56,6 +58,7 @@ const Experience = (props) => {
                                     value={s.designation}
                                     onChange={(event) => sets({ ...s, designation: event.target.value })}
                                     variant="outlined"
+                                    placeholder='Designation'
                                     required
                                 />
                             </Grid>
@@ -65,6 +68,7 @@ const Experience = (props) => {
                                     value={s.exp}
                                     onChange={(event) => sets({ ...s, exp: event.target.value })}
                                     variant="outlined"
+                                    placeholder='eg. 1'
                                     required
                                 />
                             </Grid>
@@ -74,16 +78,15 @@ const Experience = (props) => {
                                     value={s.desc}
                                     onChange={(event) => sets({ ...s, desc: event.target.value })}
                                     variant="outlined"
+                                    placeholder='Description of your job'
                                     required
                                 />
                             </Grid>
                             <Grid item>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={() => {prop.addExpereince(s) ; setbool("none") }}
+                                <Button variant="contained" color="primary"
+                                    onClick={() => {prop.addExpereince(s) ; sets({...s , company: "", designation: "" , exp : "" , desc : ""}); setbool("none") }}
                                 >
-                                    Save
+                                    Add
                                 </Button>
                             </Grid>
                         </Grid>

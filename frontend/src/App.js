@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState , useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Grid, makeStyles } from "@material-ui/core";
 import axios from "axios";
@@ -21,25 +21,25 @@ import AcceptedApplicants from "./component/recruiter/AcceptedApplicants";
 import RecruiterProfile from "./component/recruiter/Profile";
 import MessagePopup from "./lib/MessagePopup";
 import Admin from "./component/Admin";
-import isAuth, { userType,subscriptionType } from "./lib/isAuth";
+import isAuth, { userType, subscriptionType } from "./lib/isAuth";
 import Subscription from "./component/Subscription";
 import Resumereview from "./component/admin/Resumerevie";
 import OfflineExamSchedule from "./component/OfflineExamSchedule";
 import Resume from "./component/Resume";
-import MyUsers from "./component/admin/viewUsers";
-
+import MyUsers from "./component/admin/ViewUsers";
+import apiList from "./lib/apiList";
 
 function loadScript(src) {
   return new Promise((resolve) => {
-      const script = document.createElement("script");
-      script.src = src;
-      script.onload = () => {
-          resolve(true);
-      };
-      script.onerror = () => {
-          resolve(false);
-      };
-      document.body.appendChild(script);
+    const script = document.createElement("script");
+    script.src = src;
+    script.onload = () => {
+      resolve(true);
+    };
+    script.onerror = () => {
+      resolve(false);
+    };
+    document.body.appendChild(script);
   });
 }
 
@@ -69,25 +69,27 @@ function App() {
   const [skills, setSkills] = useState([]);
   const [experience, setexperience] = useState([]);
   const [education, seteducation] = useState([]);
+  const [submitted, setsubmitted] = useState(false);
   const addSkill = (item) => {
     skills.push(item);
   };
   const addExpereince = (item) => {
-      experience.push(item)
+    experience.push(item)
   };
   const addEducation = (item) => {
-      education.push(item);
+    education.push(item);
   }
   const [basicInfo, setbasicInfo] = useState({
-    name: "Your Name",
-    title: "Your Job Title",
-    email: "example@gmail.com",
-    mobile: "Your Mobile No.",
-    description: "Your brief description"
-})
+    name: "",
+    title: "",
+    email: "",
+    mobile: "",
+    description: ""
+  })
+  
   return (
     <BrowserRouter>
-      <SetPopupContext.Provider value={{setPopup , basicInfo , setbasicInfo , skills , experience , education , addSkill , addExpereince , addEducation}}>
+      <SetPopupContext.Provider value={{ setPopup, basicInfo, setbasicInfo, skills, experience, education, addSkill, addExpereince, addEducation , submitted , setsubmitted}}>
         <Grid container direction="column">
           <Grid item xs>
             <Navbar />
@@ -98,7 +100,7 @@ function App() {
                 <Welcome />
               </Route>
               <Route exact path="/admin">
-                <Admin/>
+                <Admin />
               </Route>
               <Route exact path="/login">
                 <Login />
@@ -145,12 +147,12 @@ function App() {
               {/* <Route exact path="/subscription">
              <Subscription/>
               </Route> */}
-             <Route exact path="/examschedule">
-              <OfflineExamSchedule/>
-             </Route>
-             <Route>
-                <Resume exact path="/myresume"/>
-             </Route>
+              <Route exact path="/examschedule">
+                <OfflineExamSchedule />
+              </Route>
+              <Route>
+                <Resume exact path="/myresume" />
+              </Route>
               <Route>
                 <ErrorPage />
               </Route>
