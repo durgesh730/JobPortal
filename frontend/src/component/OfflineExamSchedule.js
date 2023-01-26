@@ -164,34 +164,22 @@ const OfflineExamSchedule = () => {
   }
 
   const handleModal  =async ()=>{
-      const data = await fetch(`http://localhost:4444/api/examUserData/${id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ Confirm})
-      });
-      const res = await data.json()
-      console.log(res);
-      setData(res);
+      // const data = await fetch(`http://localhost:4444/api/examUserData/${id}`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: JSON.stringify({ Confirm})
+      // });
+      // const res = await data.json()
+      // console.log(res);
+      // setData(res);
   }
 
 
 
   return (
     <>
-      {/* <form onSubmit={(e)=>{handleSubmit(e)}} method="POST" >
-          <h1>Schedule Exam</h1>
-          {inputs.map((input) => (
-            <FormInput
-              key={input.id}
-              {...input}
-              value={values[input.name]}
-              onChange={onChange}
-            />
-          ))}
-          <button   className="examForm-btn" >Submit</button>
-        </form> */}
 
       <div className='exam_btn' >
 
@@ -290,10 +278,6 @@ const OfflineExamSchedule = () => {
           )}
         </table>
       </div>
-
-
-
-
     </>
   );
 };
