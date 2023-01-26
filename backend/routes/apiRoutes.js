@@ -138,6 +138,26 @@ router.get('/examUserData/:_id', jwtAuth ,  async (req, res) => {
 })
 
 
+// save attendance data 
+
+router.put('/saveAttendance/:_id', async (req, res) => {
+  const { attandance_confirm } = req.body;
+
+  try {
+    const newData = {};
+    if (attandance_confirm) { newData.attandance_confirm = attandance_confirm };
+
+    const userData = await examDetails.findByIdAndUpdate(req.params._id, { $set: newData }, { new: true })
+    res.json({ userData });
+    console.log(userData);
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Some error occured")
+  }
+})
+
+
 
 
 // To add new job

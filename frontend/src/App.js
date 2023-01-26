@@ -25,7 +25,7 @@ import isAuth, { userType,subscriptionType } from "./lib/isAuth";
 import Subscription from "./component/Subscription";
 import Resumereview from "./component/admin/Resume";
 import OfflineExamSchedule from "./component/OfflineExamSchedule";
-import MyUsers from "./component/admin/viewUsers";
+import MyUsers from "./component/admin/ViewUsers";
 import ExamForm from "./component/admin/ExamForm";
 import EditUser from "./component/admin/EditUser";
 

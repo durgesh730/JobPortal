@@ -8,6 +8,10 @@ let schema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    // name: {
+    //   type: String,
+    //   required: true
+    // },
     test_name: {
       type: String,
       required: true

@@ -7,7 +7,7 @@ const ViewUsers = () => {
 
   const [name, setName] = useState();
   const [data, setData] = useState();
-  const [form, setForm] = useState()
+  // const [form, setForm] = useState()
 
   const userData = async () => {
     const res = await fetch(`http://localhost:4444/api/fetchUsersData`, {
@@ -41,45 +41,45 @@ const ViewUsers = () => {
   return (
     <>
 
-    <div className='start'>
+      <div className='start'>
+        <div className='name'>
+          <span className='heading'> <b> Name</b> </span> <br></br>
+          {
+            name?.map((set) => {
+              return (<span> {set.name} <br></br> </span>)
+            })
+          }
+        </div>
 
-      <div className='name'>
-        <span className='heading'> <b> Name</b> </span> <br></br>
-        {
-          name?.map((set) => {
-            return (<span> {set.name} <br></br> </span>)
-          })
-        }
+        <div className='info' >
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th className="col">Email Id</th>
+                <th className="col">Type</th>
+                <th className="col">Subscription</th>
+              </tr>
+            </thead>
+
+            {data?.map((not) =>
+              <>
+                <tbody>
+                  <tr className='sub'>
+                    {/* <td>name</td> */}
+                    <td>{not.email}</td>
+                    <td>{not.type}</td>
+                    <td>{not.subscription}</td>
+                  </tr>
+                </tbody>
+              </>
+            )}
+          </table>
+        </div>
       </div>
 
-      <div className='info' >
-        <table class="table">
-          <thead class="thead-dark">
-            <tr>
-              <th className="col">Email Id</th>
-              <th className="col">Type</th>
-              <th className="col">Subscription</th>
-            </tr>
-          </thead>
-
-          {data?.map((not) =>
-            <>
-              <tbody>
-                <tr className='sub'>
-                  {/* <td>name</td> */}
-                  <td>{not.email}</td>
-                  <td>{not.type}</td>
-                  <td>{not.subscription}</td>
-                </tr>
-              </tbody>
-            </>
-          )}
-        </table>
+      <div className="adminbtn" >
+        <Link to={'/examform'}  >Form</Link>
       </div>
-
-      </div>
-      
-      <Link  className="b" to={'/examform'}  >form</Link>
 
     </>
   )

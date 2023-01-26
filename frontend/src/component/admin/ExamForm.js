@@ -52,7 +52,7 @@ const ExamForm = () => {
 
     const SubmitDetails = async () => {
 
-        console.log(location, email)
+        // console.log(location, email)
 
         const res = await fetch(`http://localhost:4444/api/savedata/${id}`, {
             method: "PUT",
@@ -94,14 +94,14 @@ const ExamForm = () => {
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
-                            <th className="col">Test Name</th>
+                            <th className="col">Test Name</th> 
                             {/* <th className="col">Test Description</th> */}
                             <th className="col">Location</th>
                             <th className="col">Time</th>
-                            <th className="col">Attandance</th>
-                            <th className="col">status</th>
+                            <th className="col">Attendance</th>
+                            <th className="col">Status</th>
                             <th className="col">Document</th>
-                            <th className="col">addressess</th>
+                            <th className="col">Address</th>
                             <th className="col">Phone Number</th>
                             <th className="col">Email</th>
                         </tr>
@@ -115,7 +115,7 @@ const ExamForm = () => {
                                     {/* <td>{not.test_dec}</td> */}
                                     <td>{not.location}</td>
                                     <td>{not.time}</td>
-                                    <td>{!not.attandance_confirm?"pending":"coming"}</td>
+                                    <td>{!not.attandance_confirm?"Pending":"Coming"}</td>
                                     <td>{not.status}</td>
                                     <td>{not.test_document}</td>
                                     <td>{not.address}</td>
