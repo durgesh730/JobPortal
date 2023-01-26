@@ -14,20 +14,19 @@ const { response } = require("express");
 const router = express.Router();
 
 //To schedule exam
-router.post('/examSchedule', (req, res) => {
-  //    const user = req.user;
-  // console.log("received data")
-  //   if(user.type!= "applicant") {
-  //     res.status(401).json({
-  //       message: "Sorry recruiter can't schedule exams",
-  //     });
-  //     return;
-  //   }
+router.post('/examSchedule', jwtAuth , (req, res) => {
+  const user = req.user;
+  if(user.type!= "applicant") {
+    res.status(401).json({
+      message: "Sorry recruiter can't schedule exams",
+    });
+    return;
+  }
 
   const data = req.body;
 
   let exam = new examDetails({
-    //  userId: user.userId,
+    userId: user._id,
     location: data.location,
     date: data.date,
     time: data.time,
@@ -90,7 +89,7 @@ router.get('/examform', async (req, res) => {
     const form = await examDetails.find(req.params._id)
     res.json(form)
   } catch (error) {
-    console.error(error.message);
+    console.error("message" , error.message);
     res.status(400).send("Some error occured")
   }
 })
@@ -128,15 +127,12 @@ router.put('/savedata/:_id', async (req, res) => {
 
 // ======== fetch data according user 
 
-router.get('/examUserData/:_id', async (req, res) => {
+router.get('/examUserData/:_id', jwtAuth ,  async (req, res) => {
+  const user = req.user;
   try {
-
-    const data = await examDetails.findOne({ _id: req.params._id })
+    const data = await examDetails.find({ userId: user._id })
     res.json(data)
-    console.log(data)
-
   } catch (error) {
-    console.error(error.message);
     res.status(500).send("Some error occured")
   }
 })

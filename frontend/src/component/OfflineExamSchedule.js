@@ -51,19 +51,24 @@ const OfflineExamSchedule = () => {
   const [Confirm, setConfirm] = useState();
   
   const id = localStorage.getItem("token")
-  //  console.log(id);
+  console.log(id);
   const [data, setData] = useState();
 
   const handleShow = async () => {
-    const data = await fetch(`http://localhost:4444/api/examUserData/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-    const res = await data.json()
-    console.log(res);
-    setData(res);
+    axios
+      .get(`http://localhost:4444/api/examUserData/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setData(response.data);
+      })
+      .catch((err) => {
+        // console.log(err.response);
+        console.log(err.response);
+      });
   }
 
   useEffect(() => {
@@ -121,7 +126,11 @@ const OfflineExamSchedule = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(values);
-    axios.post(apiList.examschedule, values)
+    axios.post(apiList.examschedule, values , {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((response) => {
         console.log(response);
         setbool(true);
