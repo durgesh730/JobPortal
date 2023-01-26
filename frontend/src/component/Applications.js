@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 const ApplicationTile = (props) => {
   const classes = useStyles();
   const { application } = props;
-  const setPopup = useContext(SetPopupContext);
+  const auth= useContext(SetPopupContext);
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(application.job.rating);
 
@@ -73,7 +73,7 @@ const ApplicationTile = (props) => {
       .catch((err) => {
         // console.log(err.response);
         console.log(err.response.data);
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "error",
           message: "Error",
@@ -94,7 +94,7 @@ const ApplicationTile = (props) => {
       )
       .then((response) => {
         console.log(response.data);
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "success",
           message: "Rating updated successfully",
@@ -105,7 +105,7 @@ const ApplicationTile = (props) => {
       .catch((err) => {
         // console.log(err.response);
         console.log(err);
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "error",
           message: err.response.data.message,
@@ -221,7 +221,7 @@ const ApplicationTile = (props) => {
 };
 
 const Applications = (props) => {
-  const setPopup = useContext(SetPopupContext);
+  const auth= useContext(SetPopupContext);
   const [applications, setApplications] = useState([]);
 
   useEffect(() => {
@@ -242,7 +242,7 @@ const Applications = (props) => {
       .catch((err) => {
         // console.log(err.response);
         console.log(err.response.data);
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "error",
           message: "Error",

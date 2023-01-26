@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 const JobTile = (props) => {
   const classes = useStyles();
   const { job } = props;
-  const setPopup = useContext(SetPopupContext);
+  const auth= useContext(SetPopupContext);
 
   const [open, setOpen] = useState(false);
   const [sop, setSop] = useState("");
@@ -81,7 +81,7 @@ const JobTile = (props) => {
         }
       )
       .then((response) => {
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "success",
           message: response.data.message,
@@ -90,7 +90,7 @@ const JobTile = (props) => {
       })
       .catch((err) => {
         console.log(err.response);
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "error",
           message: err.response.data.message,
@@ -545,7 +545,7 @@ const Home = (props) => {
     },
   });
 
-  const setPopup = useContext(SetPopupContext);
+  const auth= useContext(SetPopupContext);
   useEffect(() => {
     getData();
   }, []);
@@ -619,7 +619,7 @@ const Home = (props) => {
       })
       .catch((err) => {
         console.log(err.response.data);
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "error",
           message: "Error",

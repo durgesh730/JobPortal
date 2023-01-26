@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CreateJobs = (props) => {
   const classes = useStyles();
-  const setPopup = useContext(SetPopupContext);
+  const auth= useContext(SetPopupContext);
 
   const [jobDetails, setJobDetails] = useState({
     title: "",
@@ -62,7 +62,7 @@ const CreateJobs = (props) => {
         },
       })
       .then((response) => {
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "success",
           message: response.data.message,
@@ -81,7 +81,7 @@ const CreateJobs = (props) => {
         });
       })
       .catch((err) => {
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "error",
           message: err.response.data.message,

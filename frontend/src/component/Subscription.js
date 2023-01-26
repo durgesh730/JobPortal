@@ -25,6 +25,7 @@ const Subscription = ({ open, onClose }) => {
     };
 
     async function displayRazorpay(data) {
+
         const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
         if (!res) {
             alert("Razorpay SDK failed to load. Are you online?");
@@ -55,6 +56,7 @@ const Subscription = ({ open, onClose }) => {
         };
         const paymentObject = new window.Razorpay(options);
         paymentObject.open();
+
     }
 
 
