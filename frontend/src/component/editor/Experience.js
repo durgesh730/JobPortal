@@ -7,7 +7,7 @@ const Experience = (props) => {
     const [bool, setbool] = useState("none")
     return(
         <>
-        <div className='modal' style={{ display: `${prop.expDisplay}` }}>
+        <div className='modal1' style={{ display: `${prop.expDisplay}` }}>
                 <span className='close' onClick={()=>{prop.setexpDisplay("none")}} >&times;</span>
                 <Grid container direction="column" spacing={4} alignItems="center">
 

@@ -5,7 +5,7 @@ const BasicInfo = (props) => {
     const prop = props.props;
     return (
         <>
-            <div className='modal' style={{ display: `${prop.idisplay}` }}>
+            <div className='modal1' style={{ display: `${prop.idisplay}` }}>
                 <span className='close' onClick={()=>{prop.setIdisplay("none")}} >&times;</span>
                 <Grid container direction="column" spacing={4} alignItems="center">
 
