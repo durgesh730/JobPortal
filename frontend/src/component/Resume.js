@@ -6,8 +6,9 @@ import Skills from './editor/Skills';
 import Experience from './editor/Experience';
 import Education from './editor/Education';
 import { SetPopupContext } from "../App";
-
-
+import isAuth from "../lib/isAuth"
+import axios from 'axios';
+import apiList from '../lib/apiList';
 const useStyles = makeStyles((theme) => ({
     body: {
         padding: "60px 60px",
@@ -23,9 +24,6 @@ const useStyles = makeStyles((theme) => ({
 const Resume = () => {
     const auth = useContext(SetPopupContext);
     const classes = useStyles();
-    const handleResume = (e) => {
-        e.preventDefault();
-    }
     let basicInfo = auth.basicInfo;
     let setbasicInfo = auth.setbasicInfo
     let skills = auth.skills;
@@ -34,13 +32,25 @@ const Resume = () => {
     let addExpereince = auth.addExpereince;
     let education = auth.education;
     let addEducation = auth.addEducation;
-
+    const resumeDetails = {
+        userId : isAuth,
+        basicInfo : basicInfo , 
+        skills : skills ,
+        expereince : experience ,
+        education : education
+    }
+    const handleResume = () => {
+        axios
+            .post(apiList.resume , resumeDetails)
+            .then((response) => {
+                console.log(response);
+            })
+    }
     const [idisplay, setIdisplay] = useState('none');
     const [SkillDisplay, setSkillDisplay] = useState("none");
     const [expDisplay, setexpDisplay] = useState("none");
     const [eduDisplay, seteduDisplay] = useState("none")
 
-    console.log(experience)
     return (
         <>
             <BasicInfo props={{ idisplay, setIdisplay, basicInfo, setbasicInfo }} />

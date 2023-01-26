@@ -8,6 +8,7 @@ const JobApplicant = require("../db/JobApplicant");
 const Recruiter = require("../db/Recruiter");
 const Admin = require("../db/Admin");
 const router = express.Router();
+const Resume = require("../db/Resume")
 
 router.post("/signup", (req, res) => {
   const data = req.body;
@@ -86,5 +87,23 @@ router.post("/login", (req, res, next) => {
     }
   )(req, res, next);
 });
+
+router.post("/addResume/",  (req , res) => {
+  const data = req.body;
+  console.log(data)
+  let resume = new Resume({
+    userId: data.id,
+    basicInfo: data.basicInfo,
+    skills: data.skills,
+    education : data.education,
+    expereince : data.expereince
+  });
+
+  resume
+  .save()
+  .then(() => {
+    res.json({data:"saved"})
+  })
+})
 
 module.exports = router;

@@ -6,14 +6,14 @@ let schema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      required: false,
     },
     basicInfo : {
-      fullname : {
+      name : {
         type : String ,
         required: true ,
       },
-      jobtitle : {
+      title : {
         type : String ,
         required: true ,
       },
@@ -21,15 +21,9 @@ let schema = new mongoose.Schema(
         type : mongoose.SchemaTypes.Email ,
         required: true ,
       },
-      mobileNo : {
+      mobile : {
         type : String ,
         required: true ,
-        validate: {
-          validator: function (v) {
-            return v !== "" ? /\+\d{1,3}\d{10}/.test(v) : true;
-          },
-          msg: "Phone number is invalid!",
-        },
       },
       description : {
         type : String ,
@@ -38,7 +32,7 @@ let schema = new mongoose.Schema(
     },
     skills : [
       {
-        skill : {
+        skillHead : {
           type : String,
           required : true ,
         }
@@ -55,7 +49,7 @@ let schema = new mongoose.Schema(
             required: true ,
           },
           cgpa : {
-            type : Boolean , 
+            type : Number , 
             required : true ,
           }
       },
@@ -70,11 +64,11 @@ let schema = new mongoose.Schema(
           type: String,
           required: true,
         },
-        years : {
+        exp : {
           type: Number,
           required: true,
         },
-        description : {
+        desc : {
           type: String,
           required: true,
         }
