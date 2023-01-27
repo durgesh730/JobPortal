@@ -57,6 +57,21 @@ const Subscription = ({ open, onClose }) => {
         paymentObject.open();
     }
 
+     const [sub , setSub ] = useState();
+
+    const userSubscription = async () => {
+        const data = await fetch(`http://localhost:4444/api/saveSubscription/`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({subscription })
+        });
+        const res = await data.json()
+        console.log(res);
+      }
+      
+
 
     return (
 
