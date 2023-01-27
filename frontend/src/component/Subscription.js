@@ -1,7 +1,10 @@
 import { useState, useEffect, useContext } from "react";
 import React from "react";
+// import { useParams } from "react-router-dom";
+
 
 function loadScript(src) {
+
     return new Promise((resolve) => {
         const script = document.createElement("script");
         script.src = src;
@@ -16,12 +19,30 @@ function loadScript(src) {
 }
 
 const Subscription = ({ open, onClose }) => {
+
+    const [subscription, setSubscription] = useState(1)
+
+   const userSubscription = async () => {
+       const data = await fetch(`http://localhost:4444/api/saveSubscription/${subscription}`, {
+         method: "PUT",
+         headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+         body: JSON.stringify({subscription:subscription })
+       });
+       const res = await data.json()
+       console.log(res);
+     } 
+
+
+
     if (!open) return null
     const handlePayment = async (value) => {
         const response = await fetch(`/payment/razorpay/${value}`);
         const data = await response.json();
         console.log(data)
         displayRazorpay(data);
+
     };
 
     async function displayRazorpay(data) {
@@ -47,6 +68,8 @@ const Subscription = ({ open, onClose }) => {
                     signatre: response.razorpay_signature,
                 });
                 console.log(PaymentStatus);
+                userSubscription()
+                
             },
             prefill: {
                 name: "demo",
@@ -58,21 +81,8 @@ const Subscription = ({ open, onClose }) => {
         paymentObject.open();
 
     }
-
-     const [sub , setSub ] = useState();
-
-    const userSubscription = async () => {
-        const data = await fetch(`http://localhost:4444/api/saveSubscription/`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({subscription })
-        });
-        const res = await data.json()
-        console.log(res);
-      }
       
+    
 
 
     return (
@@ -86,14 +96,17 @@ const Subscription = ({ open, onClose }) => {
                 <div className="basic" style={{ marginTop: "1.4rem", padding: "2rem" }}>
                     <p className="order_type">Basic</p>
                     <p className="order_price">₹ 999</p>
-                    <button onClick={() => { handlePayment(999) }} className="buy_btn">Buy Now</button>
+                    <button onClick={() => { 
+                        handlePayment(999); setSubscription(1)
+                        }} className="buy_btn">Buy Now</button>
+
                 </div>
 
                 <div className="premium" style={{ padding: "2rem" }} >
                     <button className="closeBtn"><p onClick={onClose}>X</p></button>
                     <p className="order_type">Premium</p>
                     <p className="order_price">₹ 1999</p>
-                    <button onClick={() => { handlePayment(1999) }} className="buy_btn">Buy Now</button>
+                    <button onClick={() => { setSubscription(2); handlePayment(1999)  }} className="buy_btn">Buy Now</button>
                 </div>
             </div>
         </div>

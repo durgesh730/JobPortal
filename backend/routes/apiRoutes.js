@@ -160,16 +160,18 @@ router.put('/saveAttendance/:_id', async (req, res) => {
 
 // save subscriptions of user 
 
-router.put('/saveSubscription/:_id', async (req, res) => {
-  const {  subscription } = req.body;
-
+router.put('/saveSubscription/:id',jwtAuth ,  async (req, res) => {
+  // const {  subscription } = req.body;
+  // console.log(req.body.subscription)
+  const user = req.user;
+  let s = req.params.id == 1? 'basic': "premium";
   try {
-    const newData = {};
-    if (subscription) { newData.subscription = subscription };
-
-    const userData = await User.findByIdAndUpdate(req.params._id, { $set: newData }, { new: true })
+    const newData = {subscription:s};
+    // if (subscription) { newData.subscription = subscription };
+    // console.log(newData);
+    const userData = await User.findByIdAndUpdate(user._id, { $set: newData }, { new: true })
     res.json({ userData });
-    console.log(userData);
+    // console.log(userData);
 
   } catch (error) {
     console.error(error.message);
