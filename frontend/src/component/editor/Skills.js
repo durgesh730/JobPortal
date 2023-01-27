@@ -7,7 +7,7 @@ const Skills = (props) => {
     const [bool, setbool] = useState('none');
     return (
         <>
-            <div className='modal' style={{ display: `${prop.SkillDisplay}` }}>
+            <div className='modal1' style={{ display: `${prop.SkillDisplay}` }}>
                 <span className='close' onClick={()=>{prop.setSkillDisplay("none")}} >&times;</span>
                 <Grid container direction="column" spacing={4} alignItems="center">
 

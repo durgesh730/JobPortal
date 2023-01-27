@@ -86,6 +86,12 @@ const Navbar = (props) => {
           <Button color="inherit" onClick={() => handleClick("/admin/viewUsers")}>View Users</Button>
               <Button
                 color="inherit"
+                onClick={() => handleClick("/examform")}
+              >
+                Test Forms
+              </Button>
+              <Button
+                color="inherit"
                 onClick={() => handleClick("/admin/review_resume")}
               >
                 Review Resume

@@ -61,25 +61,25 @@ const ViewUsers = () => {
               </tr>
             </thead>
 
+            <tbody>
             {data?.map((not) =>
               <>
-                <tbody>
-                  <tr className='sub'>
+                  <tr>
                     {/* <td>name</td> */}
                     <td>{not.email}</td>
                     <td>{not.type}</td>
                     <td>{not.subscription}</td>
                   </tr>
-                </tbody>
               </>
             )}
+            </tbody>
           </table>
         </div>
       </div>
 
-      <div className="adminbtn" >
+      {/* <div className="adminbtn" >
         <Link to={'/examform'}  >Form</Link>
-      </div>
+      </div> */}
 
     </>
   )

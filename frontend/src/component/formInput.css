@@ -33,22 +33,20 @@ input:invalid[focused="true"]~span {
 .modal_box {
     text-align: center;
     padding-top: 8rem;
-    color: white;
 }
 
 .box{
     text-align: center;
     margin: auto;
     justify-content: center;
-     width: 10rem;
-    border: 1px solid white ;
-    border-radius: .3rem;
+    width: 10rem;
+    border: 1px solid black;
+    border-radius: 0.3rem;
     padding: 2rem 4rem;
+    background: white;
+    position: relative;
 }
 
-.option{
-    color: white;
-}
 
 .modal_btn{
     margin-top: 2rem;
