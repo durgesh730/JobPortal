@@ -145,13 +145,14 @@ const OfflineExamSchedule = () => {
       <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box className="modal_box" >
           <div className='box' >
+          <span className='close' onClick={handleClose} >&times;</span>
 
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               Select Test Name
             </Typography>
 
             <FormControl fullWidth>
-              <InputLabel style={{ color: "white" }} id="demo-simple-select-label">Test</InputLabel>
+              <InputLabel id="demo-simple-select-label">Test</InputLabel>
               <Select style={{ color: "white" }} labelId="demo-simple-select-label" id="demo-simple-select" value={values.exam} label="exam" name='exam' onChange={onChange} >
 
                 <MenuItem name="AWS" value={"AWS"}>AWS </MenuItem>
@@ -187,7 +188,7 @@ const OfflineExamSchedule = () => {
           {data?.map((data) =>
             <>
               <tbody>
-                <tr className='sub'>
+                <tr >
                   <td>{data.test_name}</td>
                   {/* <td>{not.test_dec}</td> */}
                   <td>{data.location}</td>
@@ -198,10 +199,11 @@ const OfflineExamSchedule = () => {
                   <td>{data.address}</td>
                   <td>{data.phone_number}</td>
                   <td>{data.email}</td>
-
-                  <div className='form_button' style={{ display: `${data.attandance_confirm || data.location == "Pending" ? "none" : "block"}` }} >
-                    <a onClick={() => { handleAttendance(data._id) }}>Confirm</a>
-                  </div>
+                  <td>
+                    <div className='form_button' style={{ display: `${data.attandance_confirm || data.location == "Pending" ? "none" : "block"}` }} >
+                      <a onClick={() => { handleAttendance(data._id) }}>Confirm</a>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </>

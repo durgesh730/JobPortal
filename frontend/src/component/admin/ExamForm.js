@@ -4,7 +4,6 @@ const ExamForm = () => {
 
     // var [details, setdetails] = useState(false);
     const [dis, setdis] = useState("none");
-
     var [id, setId] = useState();
 
     const useInput = (initialValue) => {
@@ -32,7 +31,7 @@ const ExamForm = () => {
     const address = useInput("");
     const phone_number = useInput("");
     const email = useInput("");
-   
+
 
     const handleModal = (not) => {
         location.onSet(not.location);
@@ -59,7 +58,7 @@ const ExamForm = () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ location:location.value, time:time.value, address:address.value, phone_number:phone_number.value, email:email.value })
+            body: JSON.stringify({ location: location.value, time: time.value, address: address.value, phone_number: phone_number.value, email: email.value })
         });
         const data = await res.json()
         console.log(data);
@@ -90,11 +89,11 @@ const ExamForm = () => {
 
     return (
         <>
-            <div className='form' >
-                <table class="table">
+            <div className='form examform' >
+                <table class="examtable table">
                     <thead class="thead-dark">
                         <tr>
-                            <th className="col">Test Name</th> 
+                            <th className="col">Test Name</th>
                             {/* <th className="col">Test Description</th> */}
                             <th className="col">Location</th>
                             <th className="col">Time</th>
@@ -107,27 +106,29 @@ const ExamForm = () => {
                         </tr>
                     </thead>
 
+                    <tbody>
                     {form?.map((not) =>
                         <>
-                            <tbody>
-                                <tr className='sub'>
+                                <tr >
                                     <td>{not.test_name}</td>
                                     {/* <td>{not.test_dec}</td> */}
                                     <td>{not.location}</td>
                                     <td>{not.time}</td>
-                                    <td>{!not.attandance_confirm?"Pending":"Coming"}</td>
+                                    <td>{!not.attandance_confirm ? "Pending" : "Confirmed"}</td>
                                     <td>{not.status}</td>
                                     <td>{not.test_document}</td>
                                     <td>{not.address}</td>
                                     <td>{not.phone_number}</td>
                                     <td>{not.email}</td>
-                                    <div className='form_buttom' >
-                                        <a onClick={() => { handleModal(not) }} >Schedule</a>
-                                    </div>
+                                    <td>
+                                        <div className='form_buttom' >
+                                            <a onClick={() => { handleModal(not) }} > {not.attandance_confirm ? "Reschedule" : "Schedule"} </a>
+                                        </div>
+                                    </td>
                                 </tr>
-                            </tbody>
                         </>
                     )}
+                    </tbody>
                 </table>
             </div>
 
