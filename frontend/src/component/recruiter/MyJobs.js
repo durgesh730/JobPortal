@@ -63,7 +63,7 @@ const JobTile = (props) => {
   const classes = useStyles();
   let history = useHistory();
   const { job, getData } = props;
-  const setPopup = useContext(SetPopupContext);
+  const auth= useContext(SetPopupContext);
 
   const [open, setOpen] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
@@ -99,7 +99,7 @@ const JobTile = (props) => {
         },
       })
       .then((response) => {
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "success",
           message: response.data.message,
@@ -109,7 +109,7 @@ const JobTile = (props) => {
       })
       .catch((err) => {
         console.log(err.response);
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "error",
           message: err.response.data.message,
@@ -126,7 +126,7 @@ const JobTile = (props) => {
         },
       })
       .then((response) => {
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "success",
           message: response.data.message,
@@ -136,7 +136,7 @@ const JobTile = (props) => {
       })
       .catch((err) => {
         console.log(err.response);
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "error",
           message: err.response.data.message,
@@ -708,7 +708,7 @@ const MyJobs = (props) => {
     },
   });
 
-  const setPopup = useContext(SetPopupContext);
+  const auth= useContext(SetPopupContext);
   useEffect(() => {
     getData();
   }, []);
@@ -777,7 +777,7 @@ const MyJobs = (props) => {
       })
       .catch((err) => {
         console.log(err.response.data);
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "error",
           message: "Error",

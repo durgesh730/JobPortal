@@ -116,7 +116,7 @@ const MultifieldInput = (props) => {
 
 const Login = (props) => {
   const classes = useStyles();
-  const setPopup = useContext(SetPopupContext);
+  const auth= useContext(SetPopupContext);
 
   const [loggedin, setLoggedin] = useState(isAuth());
 
@@ -225,7 +225,7 @@ const Login = (props) => {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("type", response.data.type);
           setLoggedin(isAuth());
-          setPopup({
+          auth.setPopup({
             open: true,
             severity: "success",
             message: "Logged in successfully",
@@ -233,7 +233,7 @@ const Login = (props) => {
           console.log(response);
         })
         .catch((err) => {
-          setPopup({
+          auth.setPopup({
             open: true,
             severity: "error",
             message: err.response.data.message,
@@ -242,7 +242,7 @@ const Login = (props) => {
         });
     } else {
       setInputErrorHandler(tmpErrorHandler);
-      setPopup({
+      auth.setPopup({
         open: true,
         severity: "error",
         message: "Incorrect Input",
@@ -295,7 +295,7 @@ const Login = (props) => {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("type", response.data.type);
           setLoggedin(isAuth());
-          setPopup({
+          auth.setPopup({
             open: true,
             severity: "success",
             message: "Logged in successfully",
@@ -303,7 +303,7 @@ const Login = (props) => {
           console.log(response);
         })
         .catch((err) => {
-          setPopup({
+          auth.setPopup({
             open: true,
             severity: "error",
             message: err.response.data.message,
@@ -312,7 +312,7 @@ const Login = (props) => {
         });
     } else {
       setInputErrorHandler(tmpErrorHandler);
-      setPopup({
+      auth.setPopup({
         open: true,
         severity: "error",
         message: "Incorrect Input",

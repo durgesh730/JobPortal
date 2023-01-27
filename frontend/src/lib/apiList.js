@@ -12,6 +12,10 @@ const apiList = {
   user: `${server}/api/user`,
   applicants: `${server}/api/applicants`,
   examschedule: `${server}/api/examSchedule`,
+  resume : `${server}/auth/addResume`,
+  findResume : `${server}/auth/findResume`,
+  updateResume : `${server}/auth/updateResume` , 
+  allResume : `${server}/auth/allResume`
 };
 
 export default apiList;

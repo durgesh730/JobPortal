@@ -4,11 +4,11 @@ import { Redirect } from "react-router-dom";
 import { SetPopupContext } from "../App";
 
 const Logout = (props) => {
-  const setPopup = useContext(SetPopupContext);
+  const auth= useContext(SetPopupContext);
   useEffect(() => {
     localStorage.removeItem("token");
     localStorage.removeItem("type");
-    setPopup({
+    auth.setPopup({
       open: true,
       severity: "success",
       message: "Logged out successfully",

@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Profile = (props) => {
   const classes = useStyles();
-  const setPopup = useContext(SetPopupContext);
+  const auth= useContext(SetPopupContext);
 
   const [profileDetails, setProfileDetails] = useState({
     name: "",
@@ -66,7 +66,7 @@ const Profile = (props) => {
       })
       .catch((err) => {
         console.log(err.response.data);
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "error",
           message: "Error",
@@ -97,7 +97,7 @@ const Profile = (props) => {
         },
       })
       .then((response) => {
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "success",
           message: response.data.message,
@@ -105,7 +105,7 @@ const Profile = (props) => {
         getData();
       })
       .catch((err) => {
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "error",
           message: err.response.data.message,

@@ -340,7 +340,7 @@ const FilterPopup = (props) => {
 const ApplicationTile = (props) => {
   const classes = useStyles();
   const { application, getData } = props;
-  const setPopup = useContext(SetPopupContext);
+  const auth= useContext(SetPopupContext);
   const [open, setOpen] = useState(false);
 
   const appliedOn = new Date(application.dateOfApplication);
@@ -377,14 +377,14 @@ const ApplicationTile = (props) => {
         })
         .catch((error) => {
           console.log(error);
-          setPopup({
+          auth.setPopup({
             open: true,
             severity: "error",
             message: "Error",
           });
         });
     } else {
-      setPopup({
+      auth.setPopup({
         open: true,
         severity: "error",
         message: "No resume found",
@@ -405,7 +405,7 @@ const ApplicationTile = (props) => {
         },
       })
       .then((response) => {
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "success",
           message: response.data.message,
@@ -413,7 +413,7 @@ const ApplicationTile = (props) => {
         getData();
       })
       .catch((err) => {
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "error",
           message: err.response.data.message,
@@ -637,7 +637,7 @@ const ApplicationTile = (props) => {
 };
 
 const JobApplications = (props) => {
-  const setPopup = useContext(SetPopupContext);
+  const auth= useContext(SetPopupContext);
   const [applications, setApplications] = useState([]);
   const { jobId } = useParams();
   const [filterOpen, setFilterOpen] = useState(false);
@@ -717,7 +717,7 @@ const JobApplications = (props) => {
         console.log(err.response);
         // console.log(err.response.data);
         setApplications([]);
-        setPopup({
+        auth.setPopup({
           open: true,
           severity: "error",
           message: err.response.data.message,
