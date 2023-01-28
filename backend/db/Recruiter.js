@@ -22,6 +22,19 @@ let schema = new mongoose.Schema(
     bio: {
       type: String,
     },
+    resumelist:[
+      {
+       resumeId:{
+       type:String,
+       required:true
+      },
+      mask:{
+         type:Boolean,
+         required:true
+      }
+     }
+   ]
+
   },
   { collation: { locale: "en" } }
 );

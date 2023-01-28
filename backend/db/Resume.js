@@ -73,6 +73,24 @@ let schema = new mongoose.Schema(
           required: true,
         }
       }
+    ],
+    recruiterlist:[
+       {
+        recruiterId:{
+        type:String,
+        required:true
+       },
+       mask:{
+          type:Boolean,
+          required:true,
+          default:true
+       },
+       access:{
+          type:Boolean,
+          required:true,
+          default:false
+       }
+      }
     ]
   },
   { collation: { locale: "en" } }
