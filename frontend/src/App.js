@@ -27,9 +27,10 @@ import Resumereview from "./component/admin/Resumerevie";
 import OfflineExamSchedule from "./component/OfflineExamSchedule";
 import Resume from "./component/Resume";
 import apiList from "./lib/apiList";
-import MyUsers from "./component/admin/ViewUsers";
+import MyUsers from "./component/admin/viewUsers";
 import ExamForm from "./component/admin/ExamForm";
 import EditUser from "./component/admin/EditUser";
+import Browse from "./component/recruiter/Browse";
 
 
 function loadScript(src) {
@@ -143,6 +144,11 @@ function App() {
                   <Profile />
                 )}
               </Route>
+
+              <Route exact path="/browse">
+                <Browse/>
+              </Route>
+
               <Route exact path="/addjob">
                 <CreateJobs />
               </Route>

@@ -9,7 +9,7 @@ import { SetPopupContext } from "../App";
 import axios from 'axios';
 import apiList from '../lib/apiList';
 import { userType } from '../lib/isAuth';
-import { Link , useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     body: {
@@ -45,12 +45,12 @@ const Resume = () => {
     }
 
     const handleResume = () => {
-        if(submitted){
+        if (submitted) {
             updateResume();
             return;
         }
         axios
-            .post(apiList.resume, resumeDetails , {
+            .post(apiList.resume, resumeDetails, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
@@ -60,7 +60,7 @@ const Resume = () => {
                     open: true,
                     severity: "success",
                     message: "Resume Submitted Succesfully",
-                  });
+                });
                 window.location.reload();
             })
             .catch((err) => {
@@ -73,17 +73,17 @@ const Resume = () => {
 
     const updateResume = () => {
         axios
-            .put(apiList.updateResume, {...resumeDetails , id : resumeId })
+            .put(apiList.updateResume, { ...resumeDetails, id: resumeId })
             .then((response) => {
                 console.log(response);
-                if(response.status == 200){
+                if (response.status == 200) {
                     window.location.reload();
                     auth.setPopup({
                         open: true,
                         severity: "success",
                         message: "Resume Updated Succesfully",
                     });
-                }else{
+                } else {
                     alert("Something went wrong , please try again")
                 }
             })
@@ -91,47 +91,48 @@ const Resume = () => {
                 console.log(err.response);
             });
     }
-    
+
     const setData = (data) => {
         setresumeId(data._id)
-            const basicInfo = data.basicInfo;
-            setbasicInfo({
-                ...basicInfo, name: basicInfo.name, title: basicInfo.title, email: basicInfo.email, mobile: basicInfo.mobile,
-                description: basicInfo.description
-            })
-            Array.from(data.skills).forEach(item => { addSkill(item) });
-            Array.from(data.expereince).forEach(item => { addExpereince(item) });
-            Array.from(data.education).forEach(item => { addEducation(item) });
+        const basicInfo = data.basicInfo;
+        setbasicInfo({
+            ...basicInfo, name: basicInfo.name, title: basicInfo.title, email: basicInfo.email, mobile: basicInfo.mobile,
+            description: basicInfo.description
+        })
+        Array.from(data.skills).forEach(item => { addSkill(item) });
+        Array.from(data.expereince).forEach(item => { addExpereince(item) });
+        Array.from(data.education).forEach(item => { addEducation(item) });
     }
     const getResume = () => {
+
         axios
-          .get(apiList.findResume, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
-          .then((res) => {
-            console.log(res);
-            if (res.data.message) {
-                auth.setsubmitted(false);
-            } else {
-                auth.setsubmitted(true);
-                setData(res.data)
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-      }
+            .get(apiList.findResume, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            })
+            .then((res) => {
+                console.log(res);
+                if (res.data.message) {
+                    auth.setsubmitted(false);
+                } else {
+                    auth.setsubmitted(true);
+                    setData(res.data)
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
     const [idisplay, setIdisplay] = useState('none');
     const [SkillDisplay, setSkillDisplay] = useState("none");
     const [expDisplay, setexpDisplay] = useState("none");
     const [eduDisplay, seteduDisplay] = useState("none")
     const [bool, setbool] = useState(false);
     useEffect(() => {
-        if(userType() == "Admin"){
+        if (userType() == "Admin") {
             setData(location.state.item)
-        }else{
+        } else {
             getResume();
         }
         setbool(false);
@@ -139,6 +140,110 @@ const Resume = () => {
             setbool(true)
         }, 500);
     }, [])
+
+    const [dis, setdis] = useState("none");
+    const handleModal = () => {
+        setdis("block");
+    }
+    function handleClose() {
+        setdis("none");
+    }
+
+    const [recruitersID, setRecruitersID] = useState([])
+    const [IDrecruitersID, setIDrecruitersID] = useState([])
+
+    const checkR = (e, not) => {
+        let cValue = e.target.checked;
+
+        
+        let idValue = e.target.checked; 
+
+        if (cValue === true) {
+            recruitersID.push({  recruiterId:not.userId });
+            // applyfilters();
+        } else {
+            setRecruitersID((current) =>
+                current.filter((i) => {
+                    return i.recruiterId !== not.userId;
+                })
+            );
+        } 
+
+        // ================================== recruiters
+
+
+        if (idValue === true) {
+            IDrecruitersID.push({  recruiterId:not._id });
+            // applyfilters();
+        } else {
+            setIDrecruitersID((current) =>
+                current.filter((i) => {
+                    return i.recruiterId !== not._id;
+                })
+            );
+        }
+
+    }
+
+
+    const handleSubmit = async () => {
+        // console.log(recruitersID)
+        // const data = await fetch(`http://localhost:4444/api/sendInResume/${location.state.item._id}`, {
+        //     method: "PUT",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify({ recruitersID })
+
+        // });
+        // const res = await data.json()
+        // // console.log(res);
+        // setRecruiters(res);
+        IDrecruitersID.forEach((i)=>{
+            SendToRecruiter(i)
+        })
+    }
+
+
+    const SendToRecruiter = async (i) => {
+
+         const resumelist = location.state.item._id
+
+        // IDrecruitersID.forEach(async(i)=>{
+        //     console.log(i.recruiterId)
+            const data = await fetch(`http://localhost:4444/api/recruiters/${i.recruiterId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify( {resumeId:resumelist} )
+    
+            });
+            const res = await data.json()
+            console.log(res);
+           
+        // })
+    }
+
+
+        
+    const [recruiters, setRecruiters] = useState([]);
+    const handleData = async () => {
+        const data = await fetch(`http://localhost:4444/api/findRecruiter`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        const res = await data.json()
+        console.log(res);
+        setRecruiters(res);
+    }
+
+    useEffect(() => {
+        handleData()
+    }, [setRecruiters])
+
 
     return (
         <>
@@ -148,10 +253,10 @@ const Resume = () => {
             <Education props={{ eduDisplay, seteduDisplay, education, addEducation }} />
             <Paper style={{ width: "70%" }} elevation={3} className={classes.body}>
                 <Grid item xs>
-                    {userType() == "Admin" ? 
-                    <Button> <Link to={{pathname:"/admin/review_resume"}}>Back</Link></Button>
-                    :
-                    <Typography variant="h2">My Resume</Typography>
+                    {userType() == "Admin" ?
+                        <Button> <Link to={{ pathname: "/admin/review_resume" }}>Back</Link></Button>
+                        :
+                        <Typography variant="h2">My Resume</Typography>
                     }
                 </Grid>
                 <Grid container item alignItems="center"
@@ -192,7 +297,7 @@ const Resume = () => {
 
 
                                         <div class="yui-gf">
-                                            <div  className="cross" onClick={() => { setSkillDisplay("block") }}>&#9997;</div>
+                                            <div className="cross" onClick={() => { setSkillDisplay("block") }}>&#9997;</div>
                                             <div class="yui-u first">
                                                 <h2>Skills</h2>
                                             </div>
@@ -218,7 +323,7 @@ const Resume = () => {
                                             </div>
                                         </div>
                                         <div class="yui-gf">
-                                            <div  className="cross" onClick={() => { setexpDisplay("block") }}>&#9997;</div>
+                                            <div className="cross" onClick={() => { setexpDisplay("block") }}>&#9997;</div>
                                             <div class="yui-u first">
                                                 <h2>Experience</h2>
                                             </div>
@@ -250,7 +355,7 @@ const Resume = () => {
 
 
                                         <div class="yui-gf last">
-                                            <div  className="cross" onClick={() => { seteduDisplay("block") }}>&#9997;</div>
+                                            <div className="cross" onClick={() => { seteduDisplay("block") }}>&#9997;</div>
                                             <div class="yui-u first">
                                                 <h2>Education</h2>
                                             </div>
@@ -276,7 +381,6 @@ const Resume = () => {
                                             </div>
                                         </div>
 
-
                                     </div>
                                 </div>
                             </div>
@@ -287,11 +391,44 @@ const Resume = () => {
                     </div>
                 </Grid>
                 <Grid item>
-                    <Button  variant="contained" color="primary" onClick={() => userType() == "Admin" ? updateResume() : handleResume()} className={classes.submitButton}>
-                        { userType() == "Admin" ? "Submit Review" : "Submit Resume"}
+                    <Button variant="contained" color="primary" onClick={() => userType() == "Admin" ? updateResume() : handleResume()} className={classes.submitButton}>
+                        {userType() == "Admin" ? "Submit Review" : "Submit Resume"}
+                    </Button>
+
+                    <Button style={{ marginLeft: "2rem", display: `${userType() == "Admin" ? "" : "none"}` }} onClick={handleModal} variant="contained" color="primary" >
+                        Send To Recruiters
                     </Button>
                 </Grid>
             </Paper>
+
+
+            {/* modal for sending resume */}
+
+            <div id="myModal" class="modal" style={{ display: `${dis}` }}>
+
+                <div class="modal-content">
+                    <form className='inputs' action="">
+                        {recruiters?.map((not) =>  { 
+                            //  console.log(not._id)
+                            return (<label class="container">
+                                {not.name}
+                                <input type="checkbox" onClick={(e) => { 
+                                    checkR(e, not)
+                                     }} />
+                                <span class="checkmark"></span>
+                            </label>)
+                           
+                        })
+
+                        }
+                    </form>
+
+                    <div className='form-btn' >
+                        <button className='btn' onClick={handleClose} > Close </button>
+                        <button className='btn' onClick={handleSubmit} > Send </button>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }

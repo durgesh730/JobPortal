@@ -10,13 +10,97 @@ const Application = require("../db/Application");
 const Rating = require("../db/Rating");
 const examDetails = require("../db/ExamForm");
 const { response } = require("express");
+const Resume = require("../db/Resume");
+
 
 const router = express.Router();
 
-//To schedule exam
-router.post('/examSchedule', jwtAuth , (req, res) => {
+
+// sand data to resume 
+
+router.put('/sendInResume/:_id', async (req, res) => {
+  const { recruiterlist } = req.body;
+  console.log(req.body.recruitersID)
+
+  try {
+    const newData = {};
+    if (req.body.recruitersID) { newData.recruiterlist = req.body.recruitersID };
+    const userData = await Resume.findByIdAndUpdate(req.params._id, { $set: newData }, { new: true })
+    res.json({ userData });
+    // console.log(userData);
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Some error occured")
+  }
+})
+
+
+// save resume id to recruiters
+
+router.put('/recruiters/:_id', async (req, res) => {
+     console.log(req.params._id)
+  try {
+    const newData = {};
+    if (req.body) { newData.resumelist = req.body};
+
+    const recruiter = await Recruiter.findById(req.params._id)
+
+    var flag = true 
+
+    console.log(newData.resumelist)
+
+    recruiter.resumelist.forEach(element => {
+       if(newData.resumelist.resumeId == element.resumeId){
+          console.log("resume id exist")
+          flag = false 
+       } 
+    });
+    if (flag === true) {
+    const resumeData = await Recruiter.findByIdAndUpdate(req.params._id, { $push: newData }, { new: true })
+    res.json({ resumeData })
+    }
+    // else {
+    //   const resumeData = await Recruiter.findById(req.params._id)
+    //    res.json({ resumeData })
+    // }
+    
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Some error occured")
+  }
+})
+
+
+// send resume to specific recruiter 
+
+router.get('/recruiterinfo', jwtAuth, async (req, res) => {
   const user = req.user;
-  if(user.type!= "applicant") {
+  console.log(user)
+  try {
+    const data = await Recruiter.findOne({ userId: user._id })
+    res.json(data)
+  } catch (error) {
+    res.status(500).send("Some error occured")
+  }
+})
+
+
+router.get("/getresume/:id" , (req ,res) => {
+  Resume.find({_id : req.params.id})
+  .then(data =>{
+    res.json(data);
+  })
+  .catch((err)=>{
+    res.status(400).json(err)
+  })
+})
+
+
+//To schedule exam
+router.post('/examSchedule', jwtAuth, (req, res) => {
+  const user = req.user;
+  if (user.type != "applicant") {
     res.status(401).json({
       message: "Sorry recruiter can't schedule exams",
     });
@@ -89,7 +173,7 @@ router.get('/examform', async (req, res) => {
     const form = await examDetails.find(req.params._id)
     res.json(form)
   } catch (error) {
-    console.error("message" , error.message);
+    console.error("message", error.message);
     res.status(400).send("Some error occured")
   }
 })
@@ -127,7 +211,7 @@ router.put('/savedata/:_id', async (req, res) => {
 
 // ======== fetch data according user 
 
-router.get('/examUserData/:_id', jwtAuth ,  async (req, res) => {
+router.get('/examUserData/:_id', jwtAuth, async (req, res) => {
   const user = req.user;
   try {
     const data = await examDetails.find({ userId: user._id })
@@ -158,15 +242,28 @@ router.put('/saveAttendance/:_id', async (req, res) => {
 })
 
 
+// fetch recruiter details
+
+router.get('/findRecruiter', async (req, res) => {
+  try {
+    const recruiters = await Recruiter.find(req.params._id)
+    res.json(recruiters)
+  } catch (error) {
+    console.error("message", error.message);
+    res.status(400).send("Some error occured")
+  }
+})
+
+
 // save subscriptions of user 
 
-router.put('/saveSubscription/:id',jwtAuth ,  async (req, res) => {
+router.put('/saveSubscription/:id', jwtAuth, async (req, res) => {
   // const {  subscription } = req.body;
   // console.log(req.body.subscription)
   const user = req.user;
-  let s = req.params.id == 1? 'basic': "premium";
+  let s = req.params.id == 1 ? 'basic' : "premium";
   try {
-    const newData = {subscription:s};
+    const newData = { subscription: s };
     // if (subscription) { newData.subscription = subscription };
     // console.log(newData);
     const userData = await User.findByIdAndUpdate(user._id, { $set: newData }, { new: true })

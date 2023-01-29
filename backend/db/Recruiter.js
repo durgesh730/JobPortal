@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { defaults } = require("mongoose-type-email");
 
 let schema = new mongoose.Schema(
   {
@@ -27,10 +28,12 @@ let schema = new mongoose.Schema(
        resumeId:{
        type:String,
        required:true
+       
       },
       mask:{
          type:Boolean,
-         required:true
+         required:true,
+         defaults:true
       }
      }
    ]

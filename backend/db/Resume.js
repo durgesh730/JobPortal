@@ -76,7 +76,7 @@ let schema = new mongoose.Schema(
     ],
     recruiterlist:[
        {
-        recruiterId:{
+        recruiterId:{ 
         type:String,
         required:true
        },
