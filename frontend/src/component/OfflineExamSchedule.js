@@ -126,12 +126,10 @@ const OfflineExamSchedule = () => {
     const res = await datafetch.json()
     console.log(res);
     window.location.reload()
-    // setData(res);
   }
 
   useEffect(() => {
     handleShow()
-    // handleAttendance();
   }, [setData])
 
 
@@ -174,6 +172,7 @@ const OfflineExamSchedule = () => {
             <tr>
               <th className="col">Test Name</th>
               <th className="col">Location</th>
+              <th className="col">Status</th>
               <th className="col">Time</th>
               <th className="col">Attendance</th>
               <th className="col">Document</th>
@@ -190,11 +189,10 @@ const OfflineExamSchedule = () => {
               <tbody>
                 <tr >
                   <td>{data.test_name}</td>
-                  {/* <td>{not.test_dec}</td> */}
                   <td>{data.location}</td>
+                  <td>{data.status}</td>
                   <td>{data.time}</td>
                   <td>{!data.attandance_confirm ? "Pending" : "Confirmed"}</td>
-                  {/* <td>{data.status}</td> */}
                   <td>{data.test_document}</td>
                   <td>{data.address}</td>
                   <td>{data.phone_number}</td>

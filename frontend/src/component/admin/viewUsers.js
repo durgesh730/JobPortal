@@ -1,13 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
 import './viewUser.css'
 
 
 const ViewUsers = () => {
 
   const [name, setName] = useState();
-  const [data, setData] = useState();
-  // const [form, setForm] = useState()
+  const [data, setData] = useState([]);
+  const [result, setResult] = useState([]);
+
+
+  const StatusData = async (id) => {
+    const res = await fetch(`http://localhost:4444/api/StatusData/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    const data = await res.json()
+    console.log(data)
+    if (data !== null) {
+      setResult((prev) => [...prev, data]);
+    }
+  }
 
   const userData = async () => {
     const res = await fetch(`http://localhost:4444/api/fetchUsersData`, {
@@ -17,7 +31,9 @@ const ViewUsers = () => {
       }
     });
     const data = await res.json()
-    // console.log(data);
+    data.forEach(element => {
+      StatusData(element._id);
+    });
     setData(data)
   }
 
@@ -29,8 +45,7 @@ const ViewUsers = () => {
       }
     });
     const res = await data.json()
-    // console.log(res);
-    setName(res);
+    setName(res)
   }
 
   useEffect(() => {
@@ -41,41 +56,74 @@ const ViewUsers = () => {
   return (
     <>
 
-      <div className='start'>
-        <div className='name'>
-          <span className='heading'> <b> Name</b> </span> <br></br>
-          {
-            name?.map((set) => {
-              return (<span> {set.name} <br></br> </span>)
-            })
-          }
-        </div>
 
-        <div className='info' >
-          <table class="table">
-            <thead class="thead-dark">
-              <tr>
-                <th className="col">Email Id</th>
-                <th className="col">Type</th>
-                <th className="col">Subscription</th>
-              </tr>
-            </thead>
+      {!name || !data ?
+        (<div class="loader"></div>) : (
 
-            <tbody>
-            {data?.map((not) =>
-              <>
+          <div className='start'>
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th className="col">Name</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {
+                  name?.map((set) => {
+                    return (<tr><td> {set.name} <br></br> </td></tr>)
+                  })
+                }
+              </tbody>
+            </table>
+
+            <table>
+              <thead>
+                <tr>
+                  <th className="col">Status</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {
+                  result?.map((items) => {
+                    return ( <tr><td> {items.status} <br></br> </td> </tr>  )
+                  })
+                }
+
+              </tbody>
+            </table>
+
+
+            <div className='info' >
+              <table class="table">
+                <thead class="thead-dark">
                   <tr>
-                    {/* <td>name</td> */}
-                    <td>{not.email}</td>
-                    <td>{not.type}</td>
-                    <td>{not.subscription}</td>
+                    <th className="col">Email Id</th>
+                    <th className="col">Type</th>
+                    <th className="col">Subscription</th>
                   </tr>
-              </>
-            )}
-            </tbody>
-          </table>
-        </div>
-      </div>
+                </thead>
+
+                <tbody>
+                  {data?.map((not, i) =>
+                    <>
+                      {not.type == "recruiter" ? (" ") : (
+                        <tr key={i} >
+                          <td>{not.email}</td>
+                          <td>{not.type}</td>
+                          <td>{not.subscription}</td>
+                        </tr>
+                      )}
+                    </>
+
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        )}
 
       {/* <div className="adminbtn" >
         <Link to={'/examform'}  >Form</Link>

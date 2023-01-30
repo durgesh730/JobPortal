@@ -13,7 +13,7 @@ dotenv.config();
 
 // MongoDB
 mongoose
-  .connect("mongodb+srv://JobPortal:JobPortal%40123@cluster0.hleolis.mongodb.net/test", {
+  .connect("mongodb+srv://Aniket2971:Aniket@2971@cluster0.lfrtehb.mongodb.net/test", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,

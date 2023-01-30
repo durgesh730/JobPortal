@@ -39,34 +39,59 @@ router.put('/sendInResume/:_id', async (req, res) => {
 // save resume id to recruiters
 
 router.put('/recruiters/:_id', async (req, res) => {
-     console.log(req.params._id)
+  console.log(req.params._id)
   try {
     const newData = {};
-    if (req.body) { newData.resumelist = req.body};
+    if (req.body) { newData.resumelist = req.body };
 
     const recruiter = await Recruiter.findById(req.params._id)
 
-    var flag = true 
+    var flag = true
 
     console.log(newData.resumelist)
 
     recruiter.resumelist.forEach(element => {
-       if(newData.resumelist.resumeId == element.resumeId){
-          console.log("resume id exist")
-          flag = false 
-       } 
+      if (newData.resumelist.resumeId == element.resumeId) {
+        console.log("resume id exist")
+        flag = false
+      }
     });
     if (flag === true) {
-    const resumeData = await Recruiter.findByIdAndUpdate(req.params._id, { $push: newData }, { new: true })
-    res.json({ resumeData })
+      const resumeData = await Recruiter.findByIdAndUpdate(req.params._id, { $push: newData }, { new: true })
+      res.json({ resumeData })
     }
     // else {
     //   const resumeData = await Recruiter.findById(req.params._id)
     //    res.json({ resumeData })
     // }
-    
+
   } catch (error) {
     console.error(error.message);
+    res.status(500).send("Some error occured")
+  }
+})
+
+
+// api fetch name of applicant
+
+router.get("/applicantName/:userId", (req, res) => {
+  JobApplicant.find({ userId: req.params.userId })
+    .then(data => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.status(400).json(err)
+    })
+})
+
+
+// fetch pass and fail status 
+
+router.get('/StatusData/:userId', async (req, res) => {
+  try {
+    const data = await examDetails.findOne({ userId: req.params.userId })
+    res.json(data)
+  } catch (error) {
     res.status(500).send("Some error occured")
   }
 })
@@ -86,14 +111,14 @@ router.get('/recruiterinfo', jwtAuth, async (req, res) => {
 })
 
 
-router.get("/getresume/:id" , (req ,res) => {
-  Resume.find({_id : req.params.id})
-  .then(data =>{
-    res.json(data);
-  })
-  .catch((err)=>{
-    res.status(400).json(err)
-  })
+router.get("/getresume/:id", (req, res) => {
+  Resume.find({ _id: req.params.id })
+    .then(data => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.status(400).json(err)
+    })
 })
 
 
@@ -184,7 +209,7 @@ router.get('/examform', async (req, res) => {
 
 // save data user 
 router.put('/savedata/:_id', async (req, res) => {
-  const { location, time, address, phone_number, email } = req.body;
+  const { location, time, address, phone_number, email, status } = req.body;
 
   try {
     const newData = {};
@@ -193,6 +218,7 @@ router.put('/savedata/:_id', async (req, res) => {
     if (address) { newData.address = address };
     if (phone_number) { newData.phone_number = phone_number };
     if (email) { newData.email = email }
+    if (status) { newData.status = status }
 
     // let data = await examDetails.findById(req.params._id);
     // if (!data) {
