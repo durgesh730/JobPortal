@@ -17,7 +17,7 @@ const ViewUsers = () => {
       }
     });
     const data = await res.json()
-    console.log(data)
+    // console.log(data)
     if (data !== null) {
       setResult((prev) => [...prev, data]);
     }
@@ -67,13 +67,16 @@ const ViewUsers = () => {
                   <th className="col">Name</th>
                 </tr>
               </thead>
-
               <tbody>
+
                 {
                   name?.map((set) => {
-                    return (<tr><td> {set.name} <br></br> </td></tr>)
+                    return (
+                      <tr><td> {set.name} <br></br> </td> </tr>
+                    )
                   })
                 }
+
               </tbody>
             </table>
 
@@ -87,7 +90,9 @@ const ViewUsers = () => {
               <tbody>
                 {
                   result?.map((items) => {
-                    return ( <tr><td> {items.status} <br></br> </td> </tr>  )
+                    if (items.status === "Pass") {
+                      return (<tr><td> {items.status}</td> </tr>)
+                    }
                   })
                 }
 
@@ -116,7 +121,6 @@ const ViewUsers = () => {
                         </tr>
                       )}
                     </>
-
                   )}
                 </tbody>
               </table>
@@ -124,10 +128,6 @@ const ViewUsers = () => {
           </div>
 
         )}
-
-      {/* <div className="adminbtn" >
-        <Link to={'/examform'}  >Form</Link>
-      </div> */}
 
     </>
   )
